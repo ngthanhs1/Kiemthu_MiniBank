@@ -1,0 +1,10 @@
+package com.minibank.backend.admin.dto;
+
+import java.math.BigDecimal;
+
+public record AdminAccountOverview(
+	long totalAccounts,
+	long activeAccounts,
+	long lockedAccounts,
+	BigDecimal totalBalance
+) {}
