@@ -1,0 +1,404 @@
+{
+	"info": {
+		"_postman_id": "minibank-automation-collection-2026",
+		"name": "MiniBank API Automation Test Suite",
+		"description": "Bộ kịch bản kiểm thử tự động hóa API (Postman Collection) cho dự án MiniBank Backend - Môn Kiểm định & Đánh giá phần mềm.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:8080",
+			"type": "string"
+		},
+		{
+			"key": "admin_token",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "user_token",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "otp_code",
+			"value": "123456",
+			"type": "string"
+		}
+	],
+	"item": [
+		{
+			"name": "1. Admin Portal APIs",
+			"item": [
+				{
+					"name": "TC_API_ADM_01: Admin Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200 OK\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Token type is Bearer and token exists\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.tokenType).to.eql(\"Bearer\");",
+									"    pm.expect(jsonData.accessToken).to.not.be.empty;",
+									"    pm.collectionVariables.set(\"admin_token\", jsonData.accessToken);",
+									"});",
+									"pm.test(\"User role contains ADMIN\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.user.roles).to.include(\"ADMIN\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"identifier\": \"admin@gmail.com\",\n    \"password\": \"123456\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/admin/auth/login",
+							"host": ["{{base_url}}"],
+							"path": ["api", "admin", "auth", "login"]
+						}
+					}
+				},
+				{
+					"name": "TC_API_ADM_02: Get Dashboard Stats",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200 OK\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/admin/dashboard/stats",
+							"host": ["{{base_url}}"],
+							"path": ["api", "admin", "dashboard", "stats"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "2. Mobile Auth & User APIs",
+			"item": [
+				{
+					"name": "TC_API_MOB_01: Mobile Register",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201 Created or 409 Conflict if already exists\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([201, 409]);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"phone\": \"0981712585\",\n    \"email\": \"test_auto@minibank.com\",\n    \"password\": \"123456\",\n    \"fullName\": \"Automation User\",\n    \"deviceId\": \"device-postman-01\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/mobile/auth/register",
+							"host": ["{{base_url}}"],
+							"path": ["api", "mobile", "auth", "register"]
+						}
+					}
+				},
+				{
+					"name": "TC_API_MOB_02: Send Login OTP",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200 OK\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"OTP is returned in dev-mode\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.devMode).to.be.true;",
+									"    pm.expect(jsonData.otp).to.not.be.empty;",
+									"    pm.collectionVariables.set(\"otp_code\", jsonData.otp);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"identifier\": \"0981712585\",\n    \"password\": \"123456\",\n    \"deviceId\": \"device-postman-01\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/mobile/auth/login/otp/send",
+							"host": ["{{base_url}}"],
+							"path": ["api", "mobile", "auth", "login", "otp", "send"]
+						}
+					}
+				},
+				{
+					"name": "TC_API_MOB_03: Verify Login OTP",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200 OK\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Access token issued\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.accessToken).to.not.be.empty;",
+									"    pm.collectionVariables.set(\"user_token\", jsonData.accessToken);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"identifier\": \"0981712585\",\n    \"otpCode\": \"{{otp_code}}\",\n    \"deviceId\": \"device-postman-01\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/mobile/auth/login/verify",
+							"host": ["{{base_url}}"],
+							"path": ["api", "mobile", "auth", "login", "verify"]
+						}
+					}
+				},
+				{
+					"name": "TC_API_MOB_04: Get My Accounts",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200 OK\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Response is an array of accounts\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.be.an(\"array\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{user_token}}"
+							},
+							{
+								"key": "X-Device-Id",
+								"value": "device-postman-01"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/mobile/accounts/me",
+							"host": ["{{base_url}}"],
+							"path": ["api", "mobile", "accounts", "me"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "3. Products & Services APIs",
+			"item": [
+				{
+					"name": "TC_API_PROD_01: Get Savings Products",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200 OK\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Returns array of saving products\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.be.an(\"array\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{user_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/mobile/savings/products",
+							"host": ["{{base_url}}"],
+							"path": ["api", "mobile", "savings", "products"]
+						}
+					}
+				},
+				{
+					"name": "TC_API_PROD_02: Get Loan Products",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200 OK\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Returns array of loan products\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.be.an(\"array\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{user_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/mobile/loans/products",
+							"host": ["{{base_url}}"],
+							"path": ["api", "mobile", "loans", "products"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "4. Security & Negative APIs",
+			"item": [
+				{
+					"name": "TC_API_SEC_01: Protected API without Token (401)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 401 Unauthorized\", function () {",
+									"    pm.response.to.have.status(401);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/mobile/accounts/me",
+							"host": ["{{base_url}}"],
+							"path": ["api", "mobile", "accounts", "me"]
+						}
+					}
+				},
+				{
+					"name": "TC_API_SEC_02: Admin Login with Wrong Password (401)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 401 Unauthorized\", function () {",
+									"    pm.response.to.have.status(401);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"identifier\": \"admin@gmail.com\",\n    \"password\": \"invalid_pass\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/admin/auth/login",
+							"host": ["{{base_url}}"],
+							"path": ["api", "admin", "auth", "login"]
+						}
+					}
+				}
+			]
+		}
+	]
+}
