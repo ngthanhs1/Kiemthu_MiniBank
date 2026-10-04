@@ -1,0 +1,31 @@
+Total Paragraphs: 579
+Total Tables: 49
+
+Sample Paragraphs:
+  [None] TRƯỜNG ĐẠI HỌC PHENIKAA
+  [None] KHOA CÔNG NGHỆ THÔNG TIN
+  [None] *
+  [None] <p align="center">
+  [None]   <img src="https://phenikaa-uni.edu.vn/vi/images/logo_phenikaa.png" alt="Phenikaa University Logo" width="180"/>
+  [None] </p>
+  [None] BÁO CÁO BÀI TẬP LỚN MÔN HỌC
+  [None] HỌC PHẦN: KIỂM ĐỊNH VÀ ĐÁNH GIÁ CHẤT LƯỢNG PHẦN MỀM (SE3020 / IT3020)
+  [None] ĐỀ TÀI:
+  [None] KIỂM ĐỊNH VÀ ĐÁNH GIÁ CHẤT LƯỢNG HỆ THỐNG NGÂN HÀNG SỐ TRỰC TUYẾN MINIBANK (DIGITAL BANKING CORE BACKEND)
+  [None] Giảng viên hướng dẫn: TS. Trịnh Thanh Bình
+  [None] Học kỳ / Năm học: Học kỳ I - Năm học 2025 - 2026
+  [None] Hệ đào tạo: Đại học chính quy - Ngành Kỹ thuật Phần mềm / Công nghệ Thông tin
+  [None] Nhóm sinh viên thực hiện: Nhóm Kiểm thử Phần mềm Chuyên sâu
+  [None] Địa điểm & Thời gian: Hà Nội, Năm 2026
+  [None] BẢNG PHÂN CÔNG NHIỆM VỤ THỰC HIỆN ĐỀ TÀI
+  [CENTER (1)] Bảng 0.1: Bảng phân công nhiệm vụ thực hiện đề tài MiniBank
+  [None] MỤC LỤC TỔNG QUAN
+  [None] LỜI MỞ ĐẦU & TỔNG QUAN ĐỀ TÀI
+  [None] DANH MỤC THUẬT NGỮ VÀ TỪ VIẾT TẮT
+  [None] DANH MỤC BẢNG BIỂU
+  [None] DANH MỤC HÌNH ẢNH VÀ SƠ ĐỒ
+  [None] PHẦN I: TÀI LIỆU ĐẶC TẢ YÊU CẦU PHẦN MỀM (SRS - SOFTWARE REQUIREMENTS SPECIFICATION)
+  [None] 1.1 Tổng quan về hệ thống ngân hàng số trực tuyến MiniBank
+  [None] 1.2 Danh sách tác nhân hệ thống (Actors)
+  [None] 1.3 Phân rã chức năng hệ thống (Functional Decomposition)
+  [None] 1.4 Biểu đồ Use Case tổng quan

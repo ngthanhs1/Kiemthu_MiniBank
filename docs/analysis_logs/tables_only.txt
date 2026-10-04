@@ -1,0 +1,7 @@
+P72: 3.1.1. Bảng điều kiện kiểm thử chức năng tạo bài viết
+P74: 3.1.3. Bảng điều kiện kiểm thử chức năng sửa/xóa bài viết
+P75: 3.1.5. Bảng điều kiện kiểm thử chức năng tương tác bài viết
+P78: 3.1.7. Bảng điều kiện kiểm thử chức năng xác thực người dùng
+P80: 3.1.9. Bảng điều kiện kiểm thử chức năng Admin
+P81: 3.2.1. Bảng điều kiện kiểm thử chức năng gửi tin nhắn
+P82: 3.2.3. Bảng điều kiện kiểm thử chức năng block/unblock trong chat

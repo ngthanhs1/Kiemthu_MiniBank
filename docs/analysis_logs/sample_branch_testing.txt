@@ -1,0 +1,290 @@
+=== PAGE 63 ===
+ 
+AUTH-02 
+Đăng ký với email không 
+đúng định dạng 
+Pass 
+AUTH-03 
+Đăng ký với email đã tồn 
+tại 
+Pass 
+AUTH-04 
+Đăng ký với mật khẩu 
+không đủ độ dài tối thiểu 
+Pass 
+AUTH-05 
+Đăng nhập với thông tin 
+hợp lệ 
+Pass 
+AUTH-06 
+Đăng nhập sai mật khẩu 
+Pass 
+AUTH-07 
+Đăng nhập bằng tài khoản 
+bị khóa 
+Pass 
+AUTH-08 
+Sử dụng token không hợp 
+lệ hoặc hết hạn 
+Pass 
+AUTH-09 
+Truy cập API bảo vệ khi 
+không có token 
+Pass 
+AUTH-10 
+Người dùng thường truy 
+cập API dành cho Admin 
+Pass 
+ 
+Lỗi chính được phát hiện trong quá trình kiểm thử là các trường hợp dữ liệu 
+không hợp lệ có thể dẫn đến việc tạo tài khoản hoặc xác thực sai nếu không 
+được kiểm tra đầy đủ. Để khắc phục, AuthService thực hiện kiểm tra định dạng 
+email, độ dài mật khẩu và sự tồn tại của tài khoản trước khi thực hiện đăng ký 
+hoặc đăng nhập. 
+Ngoài ra, nhóm kiểm thử các nhánh xử lý xác thực JWT nhằm đảm bảo chỉ các 
+token hợp lệ mới được phép truy cập các API được bảo vệ. Hệ thống cũng 
+kiểm tra trạng thái tài khoản trước khi cho phép đăng nhập. Nếu tài khoản bị 
+khóa, service sẽ trả về UnauthorizedException và từ chối truy cập. Các trường 
+hợp token không hợp lệ, token hết hạn hoặc không có token đều được xử lý 
+đúng và trả về mã lỗi bảo mật phù hợp. 
+2.1.7. Unit test cho AdminService 
+Mục tiêu của unit test AdminService là kiểm tra các chức năng quản trị hệ 
+thống bao gồm khóa tài khoản người dùng, mở khóa tài khoản, quản lý bài viết 
+vi phạm và kiểm tra quyền truy cập của quản trị viên. 
+62 
+
+=== PAGE 64 ===
+ 
+Các nhánh chính đã kiểm thử: 
+Test case 
+Nội dung kiểm thử 
+Kết quả 
+ADMIN-01 
+Admin khóa tài khoản 
+người dùng 
+Pass 
+ADMIN-02 
+Admin mở khóa tài khoản 
+người dùng 
+Pass 
+ADMIN-03 
+Admin ẩn hoặc xóa bài 
+viết vi phạm 
+Pass 
+ADMIN-04 
+User thường gọi API 
+quản trị 
+Pass 
+ADMIN-05 
+Ghi nhận thao tác quản trị 
+vào hệ thống 
+Pass 
+  
+Lỗi chính được phát hiện trước khi hoàn thiện là các thao tác quản trị chưa 
+được kiểm tra quyền truy cập đầy đủ. Điều này có thể dẫn đến việc người dùng 
+thông thường thực hiện các chức năng chỉ dành cho quản trị viên. Để khắc 
+phục, AdminService bổ sung kiểm tra role của người dùng trước khi thực hiện 
+các thao tác quản trị. 
+Ngoài ra, nhóm kiểm thử các trường hợp khóa và mở khóa tài khoản nhằm đảm 
+bảo trạng thái người dùng được cập nhật chính xác trong cơ sở dữ liệu. Đối với 
+các thao tác xử lý bài viết vi phạm, hệ thống kiểm tra sự tồn tại của bài viết 
+trước khi thực hiện cập nhật trạng thái hoặc xóa dữ liệu. Nếu đối tượng không 
+tồn tại, service sẽ trả về NotFoundException; nếu người thực hiện không có 
+quyền quản trị, hệ thống sẽ trả về ForbiddenException. Sau khi hoàn tất kiểm 
+thử, các chức năng quản trị đều hoạt động đúng theo yêu cầu và đảm bảo tính 
+an toàn trong quá trình vận hành hệ thống. 
+2.2. Branch / Condition / Path testing 
+2.2.1. Branch testing cho tạo bài viết 
+Luồng tạo bài viết có các nhánh chính: 
+63 
+
+=== PAGE 65 ===
+ 
+ 
+Hình 3.10 Sơ đồ branch testing tạo bài viết 
+Các nhánh đã được kiểm thử: 
+Nhánh 
+Điều kiện 
+Expected 
+Kết quả 
+64 
+
+=== PAGE 66 ===
+ 
+B1 
+Có content hợp lệ 
+Tạo post 
+thành công 
+Pass 
+B2 
+Content rỗng và không có media 
+Reject 
+BadReques
+tException 
+Pass 
+B3 
+Content rỗng nhưng có media 
+Tạo 
+media-only 
+post 
+Pass 
+B4 
+User khác sửa bài 
+Reject 
+Forbidden
+Exception 
+Pass 
+2.2.2. Condition testing cho Post ownership 
+Điều kiện chính: 
+post tồn tại AND user hiện tại là owner 
+Các trường hợp đã kiểm thử: 
+Trường 
+hợp 
+post tồn tại 
+user là 
+owner 
+Expected 
+Kết quả 
+C1 
+True 
+True 
+Cho phép update/delete 
+Pass 
+C2 
+True 
+False 
+ForbiddenException 
+Pass 
+C3 
+False 
+- 
+NotFoundException 
+Đã bổ sung 
+logic xử lý 
+Điều kiện này giúp đảm bảo user không thể sửa hoặc xóa bài viết không thuộc 
+sở hữu của mình. 
+ 
+65 
+
+=== PAGE 67 ===
+ 
+2.2.3. Branch testing cho gửi tin nhắn 
+Luồng gửi tin nhắn có các nhánh quan trọng: 
+ 
+Hình 3.11 Sơ đồ branch testing gửi tin nhắn 
+66 
+
+=== PAGE 68 ===
+ 
+Các nhánh đã được kiểm thử: 
+Nhánh 
+Điều kiện 
+Expected 
+Kết quả 
+B1 
+Tin nhắn text hợp lệ 
+Lưu message thành công 
+Pass 
+B2 
+Tin nhắn rỗng 
+BadRequestException 
+Pass 
+B3 
+Sender bị block 
+ForbiddenException 
+Pass 
+B4 
+User sửa tin nhắn người 
+khác 
+ForbiddenException 
+Pass 
+2.2.4. Branch testing cho Like/Unlike 
+Luồng like/unlike có các nhánh: 
+ 
+Hình 3.12 Sơ đồ branch testing like/unlike bài viết  
+67 
+
+=== PAGE 69 ===
+ 
+Các nhánh đã được kiểm thử: 
+Nhánh 
+Điều kiện 
+Expected 
+Kết quả 
+B1 
+User chưa like 
+Tạo like, tăng likes_count 
+Pass 
+B2 
+User đã like 
+Unlike, giảm likes_count 
+Pass 
+B3 
+Duplicate 
+key 
+11000 
+Không tạo duplicate, không tăng 
+count sai 
+Pass 
+2.2.5. Condition testing cho comment 
+Điều kiện chính: 
+content sau trim không rỗng AND content.length <= 1000 
+Các trường hợp kiểm thử: 
+Trường 
+hợp 
+Nội dung comment 
+Expected 
+Kết quả 
+C1 
+Comment hợp lệ 
+Lưu comment 
+Pass 
+C2 
+Chuỗi rỗng hoặc toàn khoảng 
+trắng 
+BadRequestExc
+eption 
+Pass 
+C3 
+1001 ký tự 
+BadRequestExc
+eption 
+Pass 
+2.2.6. Path testing cho Recommendation 
+Đối với Recommendation, nhóm kiểm tra các đường đi logic chính trong hàm 
+xử lý content-based: 
+Path 
+Mô tả 
+Expected 
+Kết quả 
+P1 
+Có dữ liệu tương tác, có 
+tag phù hợp 
+Tính được điểm gợi ý 
+Pass 
+P2 
+Bài viết đã xem 
+Bỏ qua bài đã xem 
+Pass 
+P3 
+Không có tag phù hợp 
+Trả về None 
+Pass 
+P4 
+Payload response hợp lệ 
+Schema chấp nhận 
+Pass 
+2.3. Integration testing 
+Trong phạm vi kết quả hiện tại, nhóm đã thực hiện kiểm thử tích hợp ở mức 
+service 
+với 
+các 
+dependency 
+được 
+mock 
+như 
+model 
+MongoDB, 
+Firebase/Firestore, notification hoặc repository liên quan. Mục tiêu là kiểm tra 
+68 
+

@@ -1,0 +1,436 @@
+=== PAGE 4 ===
+ 
+MỤC LỤC 
+PHÂN CÔNG NHIỆM VỤ​
+1 
+MỤC LỤC​
+3 
+DANH MỤC BẢNG BIỂU VÀ HÌNH ẢNH​
+6 
+PHẦN I: TÀI LIỆU ĐẶC TẢ YÊU CẦU PHẦN MỀM (SRS)​
+7 
+1. Giới thiệu​
+7 
+1.1 Mục đích dự án​
+7 
+1.2 Phạm vi dự án​
+7 
+1.3 Các định nghĩa, thuật ngữ​
+8 
+1.4 Tổng quan hệ thống mạng xã hội​
+9 
+2. Yêu cầu chức năng​
+10 
+2.1 Các tác nhân (User, Admin, Moderator,…)​
+10 
+2.2 Các chức năng của hệ thống​
+10 
+2.3 Sơ đồ chức năng​
+12 
+2.4 Biểu đồ Use Case tổng quan​
+14 
+2.5 Quy trình nghiệp vụ​
+15 
+2.6 Biểu đồ tuần tự (sequence diagrams)​
+18 
+2.6.1. Tuần tự đăng nhập​
+18 
+2.6.2. Tuần tự tạo bài viết​
+19 
+2.6.3. Tuần tự Like/Unlike bài viết​
+20 
+2.6.4. Tuần tự nhắn tin realtime​
+21 
+2.6.5. Tuần tự Admin xử lý báo cáo vi phạm​
+22 
+2.7. Đặc tả Use Case​
+23 
+2.6.1. Use Case: Đăng ký tài khoản​
+23 
+2.6.2. Use Case: Đăng nhập​
+23 
+2.6.3. Use Case: Cập nhật hồ sơ cá nhân​
+24 
+2.6.4. Use Case: Tạo bài viết​
+25 
+2.6.5. Use Case: Sửa bài viết​
+26 
+2.6.6. Use Case: Xóa bài viết​
+26 
+2.6.7. Use Case: Like/Unlike bài viết​
+27 
+2.6.8. Use Case: Bình luận bài viết​
+27 
+2.6.9. Use Case: Gửi tin nhắn realtime​
+28 
+2.6.10. Use Case: Gợi ý nội dung​
+29 
+2.6.11. Use Case: Báo cáo bài viết vi phạm​
+29 
+2.6.12. Use Case: Admin khóa tài khoản người dùng​
+30 
+2.6.13. Use Case: Admin xử lý bài viết vi phạm​
+31 
+3. Yêu cầu phi chức năng​
+31 
+3.1 Giao diện người dùng​
+31 
+3.2 Tính bảo mật​
+32 
+3.3 Hiệu năng​
+32 
+3.4 Tính tương thích​
+32 
+3.5 Độ tin cậy và khả năng phục hồi​
+33 
+3.6. Tính ràng buộc​
+33 
+3.7. Khả năng mở rộng​
+33 
+3 
+
+=== PAGE 5 ===
+ 
+PHẦN II: KẾ HOẠCH KIỂM THỬ PHẦN MỀM (TEST PLAN)​
+34 
+1. Giới thiệu​
+34 
+1.1 Mục đích​
+34 
+1.2 Tổng quan dự án​
+34 
+1.3 Danh sách các test case​
+35 
+2. Yêu cầu tài nguyên​
+38 
+2.1 Phần cứng​
+38 
+2.2 Phần mềm​
+38 
+2.3 Công cụ hỗ trợ kiểm thử​
+39 
+2.4 Môi trường kiểm thử​
+39 
+3. Phạm vi kiểm thử​
+40 
+3.1 Các chức năng được kiểm thử​
+40 
+3.2 Các chức năng chưa kiểm thử​
+42 
+4. Chiến lược kiểm thử​
+43 
+4.1. Sơ đồ tổng quan quy trình kiểm thử​
+43 
+4.2. Các mức kiểm thử​
+44 
+4.3 Các loại kiểm thử​
+46 
+4.4 Ma trận kỹ thuật kiểm thử​
+53 
+5. Điều kiện chấp nhận​
+54 
+6. Defect Tracking​
+55 
+6.1. Mục đích quản lý lỗi​
+55 
+6.2. Phân loại lỗi​
+55 
+6.3. Quy trình xử lý lỗi​
+56 
+PHẦN III: THỰC HIỆN KIỂM THỬ (TEST EXECUTION)​
+57 
+1. Cài đặt môi trường kiểm thử​
+57 
+1.1 Thiết lập máy chủ và cơ sở dữ liệu​
+57 
+1.2. Cài đặt môi trường phát triển và công cụ kiểm thử​
+57 
+2. Kiểm thử hộp trắng​
+58 
+2.1. Unit testing​
+58 
+2.2. Branch / Condition / Path testing​
+63 
+2.3. Integration testing​
+68 
+2.4. Kết quả kiểm thử hộp trắng​
+69 
+3. Kiểm thử hộp đen​
+71 
+3.1 Kiểm thử hộp đen chức năng Post​
+71 
+3.2. Kiểm thử hộp đen chức năng Chat realtime​
+80 
+3.3. Kiểm thử giá trị biên​
+83 
+4. Kiểm thử hiệu năng bằng Apache JMeter​
+84 
+4.1. Mục tiêu kiểm thử hiệu năng​
+84 
+4.2. Công cụ sử dụng​
+85 
+4.3. Chuẩn bị môi trường kiểm thử​
+86 
+4.4. Cấu hình Test Plan trong JMeter​
+86 
+4.5. Cấu hình Thread Group​
+87 
+4.6. Cấu hình HTTP Request Defaults​
+87 
+4.7. Cấu hình HTTP Header Manager​
+88 
+4 
+
+=== PAGE 6 ===
+ 
+4.8. Cấu hình CSV Data Set Config​
+88 
+4.9. Cấu hình request đăng nhập​
+89 
+4.10. Cấu hình request lấy danh sách bài viết​
+90 
+4.11. Cấu hình request tạo bài viết​
+90 
+4.12. Cấu hình Timer​
+91 
+4.13. Cấu hình Listener​
+91 
+4.14. Kết quả kiểm thử​
+92 
+5. Kiểm thử giao diện bằng Selenium​
+94 
+5.1. Mục tiêu kiểm thử​
+94 
+5.2. Công cụ sử dụng​
+95 
+5.3. Môi trường kiểm thử​
+95 
+5.4. Phạm vi kiểm thử​
+95 
+5.5. Các kịch bản kiểm thử giao diện​
+96 
+5.6. Quy trình thực hiện kiểm thử​
+96 
+5.7. Kết quả kiểm thử​
+96 
+5.8. Kiểm thử thêm với Selenium IDE​
+98 
+PHẦN IV: BÁO CÁO PHÂN TÍCH TỔNG HỢP (TEST REPORT)​
+102 
+1. Phạm vi báo cáo​
+102 
+2. Báo lỗi và Rủi ro nổi bật​
+102 
+3. Tổng kết kiểm tra​
+103 
+4. Đánh giá & Đề xuất​
+103 
+TÀI LIỆU THAM KHẢO​
+104 
+ 
+ 
+5 
+
+=== PAGE 7 ===
+ 
+DANH MỤC BẢNG BIỂU VÀ HÌNH ẢNH 
+Hình 1.1. Sơ đồ chức năng tổng quát của hệ thống MiniSocial​
+13 
+Hình 1.2. Biểu đồ Use Case tổng quan của hệ thống MiniSocial​
+15 
+Hình 1.3. Sơ đồ quy trình đăng ký và đăng nhập​
+16 
+Hình 1.4. Sơ đồ quy trình tạo bài viết và tương tác​
+17 
+Hình 1.6. Sơ đồ quy trình nhắn tin​
+17 
+Hình 1.9 Sơ đồ tuần tự đăng nhập​
+18 
+Hình 1.10 Sơ đồ tuần tự tạo bài viết có ảnh​
+19 
+Hình 1.11 Sơ đồ tuần tự Like/Unlike bài viết​
+20 
+Hình 1.12 Sơ đồ tuần tự nhắn tin realtime​
+21 
+Hình 1.13 Sơ đồ tuần tự Admin xử lý báo cáo vi phạm​
+22 
+Hình 2.7. Sơ đồ quy trình kiểm thử tổng quát của MiniSocial​
+43 
+Hình 2.11. Sơ đồ CFG cho Login Flow​
+48 
+Hình 2.15. Sơ đồ quy trình kiểm thử hồi quy​
+52 
+Hình 2.19. Sơ đồ quy trình xử lý lỗi​
+56 
+Hình 3.10 Sơ đồ branch testing tạo bài viết​
+64 
+Hình 3.11 Sơ đồ branch testing gửi tin nhắn​
+66 
+Hình 3.12 Sơ đồ branch testing like/unlike bài viết​
+67 
+Hình 3.1 Giao diện kiểm thử dung lượng ảnh bài viết​
+72 
+Hình 3.2 Giao diện kiểm thử độ dài nội dung bài viết​
+72 
+Hình 3.11 POST-POSTS tạo bài viết bằng api với POSTMAN​
+73 
+Hình 3.3 Giao diện kiểm thử like bài viết​
+76 
+Hình 3.4 Giao diện kiểm thử comment bài viết​
+76 
+Hình 3.12 POST-LOGIN đăng nhập bằng api với POSTMAN​
+78 
+Hình 3.13 GET-USER lấy danh sách user bằng api với POSTMAN​
+80 
+Hình 3.5 Giao diện người block và người bị block​
+82 
+Hình 3.6. Cấu hình và kết quả kiểm thử hiệu năng trong View Results in Table​
+93 
+Hình 3.7. Response data của API POST- Login trong View Results Tree​
+93 
+Hình 3.8. Tổng hợp số lượng request, thời gian trung bình, lỗi​
+94 
+Hình 3.9. Tổng hợp chi tiết hơn về min, max, average, throughput​
+94 
+Hình 3.14: Giao diện đăng nhập quản trị (URL: http://localhost:3000/login)​
+98 
+Hình 3.15: Giao diện Dashboard sau khi đăng nhập thành công​
+98 
+Hình 3.16: Giao diện Màn hình Selenium IDE đang ghi lại​
+99 
+Hình 3.17: Giao diện Màn hình Danh sách các bước test case​
+100 
+Hình 3.18: Giao diện Màn hình Selenium IDE đang ghi lại​
+101 
+ 
+6 
+
+=== PAGE 8 ===
+ 
+PHẦN I: TÀI LIỆU ĐẶC TẢ YÊU CẦU PHẦN MỀM (SRS) 
+1.​ Giới thiệu 
+1.1 Mục đích dự án 
+Trong thời đại công nghệ số hiện nay, mạng xã hội đã trở thành một trong 
+những nền tảng quan trọng giúp người dùng kết nối, chia sẻ thông tin, trao đổi 
+nội dung và tương tác với nhau một cách nhanh chóng. Các ứng dụng mạng xã 
+hội không chỉ phục vụ mục đích giao tiếp cá nhân mà còn hỗ trợ xây dựng cộng 
+đồng, truyền tải thông tin, quảng bá nội dung và tạo ra môi trường tương tác 
+trực tuyến đa dạng. 
+Dự án MiniSocial được xây dựng nhằm mô phỏng một hệ thống mạng xã hội 
+cơ bản, trong đó người dùng có thể đăng ký tài khoản, đăng nhập, cập nhật hồ 
+sơ cá nhân, tạo bài viết, tương tác với bài viết, bình luận, nhắn tin thời gian 
+thực và nhận gợi ý nội dung phù hợp. Bên cạnh đó, hệ thống còn có trang quản 
+trị dành cho Admin để quản lý người dùng, kiểm duyệt nội dung và xử lý các 
+bài viết vi phạm. 
+Mục đích của tài liệu đặc tả yêu cầu phần mềm này là mô tả rõ các chức năng 
+chính, các tác nhân tham gia hệ thống, quy trình nghiệp vụ, các yêu cầu chức 
+năng và phi chức năng của MiniSocial. Tài liệu này là cơ sở để nhóm xây dựng 
+kế hoạch kiểm thử, thiết kế test case và đánh giá chất lượng phần mềm trong 
+các phần tiếp theo của báo cáo. 
+1.2 Phạm vi dự án 
+Hệ thống MiniSocial được thiết kế cho hai nhóm người dùng chính: người 
+dùng mạng xã hội và người quản trị hệ thống. 
+Đối với người dùng thông thường, hệ thống hỗ trợ các chức năng: 
+●​ Đăng ký tài khoản. 
+●​ Đăng nhập, đăng xuất. 
+●​ Cập nhật thông tin hồ sơ cá nhân. 
+●​ Tạo, sửa, xóa bài viết. 
+●​ Đăng bài viết có nội dung văn bản và hình ảnh. 
+●​ Xem bảng tin. 
+●​ Like/unlike bài viết. 
+●​ Bình luận bài viết. 
+●​ Báo cáo bài viết vi phạm. 
+●​ Gửi và nhận tin nhắn thời gian thực. 
+7 
+
+=== PAGE 9 ===
+ 
+●​ Nhận gợi ý nội dung hoặc bài viết phù hợp. 
+Đối với Admin, hệ thống hỗ trợ các chức năng: 
+●​ Đăng nhập vào trang quản trị. 
+●​ Quản lý danh sách người dùng. 
+●​ Khóa hoặc mở khóa tài khoản người dùng. 
+●​ Quản lý bài viết. 
+●​ Ẩn hoặc xóa bài viết vi phạm. 
+●​ Xem danh sách báo cáo vi phạm. 
+●​ Kiểm tra quyền truy cập và lịch sử thao tác quản trị. 
+Phạm vi của tài liệu này tập trung vào các module lõi của hệ thống gồm: 
+Authentication, Post & Interaction, Chat realtime, Recommendation và 
+Admin. Một số chức năng nâng cao như gọi video, livestream, thanh toán, 
+quảng cáo hoặc phân tích dữ liệu chuyên sâu không nằm trong phạm vi của báo 
+cáo này. 
+1.3 Các định nghĩa, thuật ngữ 
+Thuật ngữ 
+Ý nghĩa 
+SRS 
+Software Requirement Specification – Tài liệu đặc 
+tả yêu cầu phần mềm 
+Use Case 
+Biểu đồ hoặc mô tả ca sử dụng, thể hiện cách tác 
+nhân tương tác với hệ thống 
+User 
+Người dùng thông thường của ứng dụng mạng xã 
+hội 
+Admin 
+Người quản trị hệ thống, có quyền quản lý người 
+dùng và nội dung 
+Moderator 
+Người kiểm duyệt nội dung, có thể xử lý báo cáo vi 
+phạm nếu hệ thống hỗ trợ 
+Authentication 
+Quá trình xác thực người dùng, gồm đăng ký, đăng 
+nhập, đăng xuất 
+JWT 
+JSON Web Token, dùng để xác thực phiên đăng 
+nhập của người dùng 
+Post 
+Bài viết do người dùng tạo trên mạng xã hội 
+8 
+
+=== PAGE 10 ===
+ 
+Like/Unlike 
+Hành động thích hoặc bỏ thích bài viết 
+Comment 
+Bình luận của người dùng dưới bài viết 
+Realtime Chat 
+Chức năng nhắn tin thời gian thực giữa các người 
+dùng 
+Recommendation 
+Chức năng gợi ý nội dung hoặc bài viết dựa trên dữ 
+liệu tương tác 
+API 
+Giao diện lập trình ứng dụng, dùng để client giao 
+tiếp với backend 
+Backend 
+Phần xử lý nghiệp vụ phía máy chủ 
+Frontend 
+Phần giao diện người dùng 
+Database 
+Cơ sở dữ liệu lưu trữ thông tin hệ thống 
+Cloudinary 
+Dịch vụ lưu trữ và xử lý ảnh/video trên cloud 
+Firebase 
+Nền tảng hỗ trợ thông báo, xác thực hoặc dịch vụ 
+realtime tùy theo cấu hình 
+MongoDB 
+Hệ quản trị cơ sở dữ liệu NoSQL dùng để lưu trữ dữ 
+liệu 
+Flutter 
+Framework dùng để xây dựng ứng dụng mobile 
+Next.js 
+Framework dùng để xây dựng Admin Web 
+NestJS 
+Framework backend dùng để xây dựng API phía 
+server 
+1.4 Tổng quan hệ thống mạng xã hội 
+Hệ thống MiniSocial được xây dựng theo mô hình client-server. Ứng dụng 
+người dùng được phát triển bằng Flutter, trang quản trị được phát triển bằng 
+Next.js, backend được xây dựng bằng NestJS và cơ sở dữ liệu sử dụng 
+MongoDB. Ngoài ra, hệ thống có thể tích hợp Cloudinary để lưu trữ hình ảnh, 
+Firebase để hỗ trợ thông báo hoặc các dịch vụ liên quan, đồng thời có module 
+gợi ý nội dung nhằm nâng cao trải nghiệm người dùng. 
+Nội dung phần đặc tả yêu cầu phần mềm được chia thành ba nhóm chính: 
+●​ Phần giới thiệu tổng quan hệ thống, phạm vi sử dụng và thuật ngữ. 
+9 
+

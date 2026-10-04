@@ -1,0 +1,81 @@
+Total Figures: 26
+  1. Hình 1.1: Sơ đồ chức năng tổng quát của hệ thống MiniBank
+  2. Hình 1.2: Biểu đồ Use Case tổng quan của hệ thống MiniBank
+  3. Hình 1.3: Sơ đồ kiến trúc phân tầng (Layered Architecture) hệ thống MiniBank
+  4. Hình 1.4: Sơ đồ mô hình thực thể dữ liệu quan hệ (ERD) của MiniBank
+  5. Hình 1.5: Sơ đồ quy trình nghiệp vụ Đăng ký & Đăng nhập tài khoản
+  6. Hình 1.6: Sơ đồ quy trình nghiệp vụ Chuyển tiền nội bộ & Khóa bi quan
+  7. Hình 1.7: Sơ đồ quy trình nghiệp vụ Mở & Tất toán sổ tiết kiệm
+  8. Hình 1.8: Sơ đồ quy trình nghiệp vụ Vay vốn & Thẩm định phê duyệt giải ngân
+  9. Hình 1.9: Sơ đồ tuần tự Đăng nhập & Xác thực cấp phát JWT Token
+  10. Hình 1.10: Sơ đồ tuần tự Chuyển tiền nội bộ với Khóa bi quan (Pessimistic Locking)
+  11. Hình 1.11: Sơ đồ tuần tự Mở sổ tiết kiệm trực tuyến
+  12. Hình 1.12: Sơ đồ tuần tự Thẩm định và Phê duyệt giải ngân khoản vay
+  13. Hình 1.13: Sơ đồ tuần tự Tra cứu lịch sử và Xuất sao kê tài khoản
+  14. Hình 2.1: Sơ đồ quy trình kiểm thử phần mềm tổng quát của MiniBank
+  15. Hình 2.2: Sơ đồ dòng điều khiển (CFG) cho phương thức transfer()
+  16. Hình 2.3: Sơ đồ quy trình kiểm thử hồi quy tự động hóa (Regression Testing)
+  17. Hình 2.4: Sơ đồ quy trình quản lý và xử lý sự cố / lỗi (Defect Lifecycle)
+  18. Hình 3.1: Sơ đồ Branch Testing cho phương thức chuyển tiền transfer()
+  19. Hình 3.2: Sơ đồ Branch Testing cho phương thức nộp đơn vay applyLoan()
+  20. Hình 3.3: Sơ đồ Branch Testing cho phương thức phê duyệt khoản vay approveLoan()
+  21. Hình 3.4: Sơ đồ chu trình tự động hóa kiểm thử API với Postman & Newman
+  22. Hình 3.5: Sơ đồ cấu hình kịch bản kiểm thử tải Apache JMeter (Thread Group Topology)
+  23. Hình 3.6: Sơ đồ tuần tự Kiểm thử đồng thời (Concurrency) & Khóa bi quan chống Double-Spending
+  24. Hình 4.1: Sơ đồ mô hình đánh giá chất lượng phần mềm theo tiêu chuẩn ISO/IEC 25010
+  25. Hình 4.2: Biểu đồ phân bổ lỗi theo mức độ nghiêm trọng (Defect Distribution by Severity)
+  26. Hình 4.3: Biểu đồ tỷ lệ kết quả kiểm thử (Test Execution Pass/Fail Distribution)
+
+Total Tables: 24
+  1. Bảng 0.1: Bảng phân công nhiệm vụ thực hiện đề tài MiniBank
+  2. Bảng 0.2: Danh mục thuật ngữ và từ viết tắt
+  3. Bảng 1.1: Đặc tả Use Case UC01 - Đăng ký tài khoản người dùng mới (Register)
+  4. Bảng 1.2: Đặc tả Use Case UC02 - Đăng nhập hệ thống & Cấp phát JWT Token (Login)
+  5. Bảng 1.3: Đặc tả Use Case UC03 - Chuyển tiền nội bộ (Internal Transfer)
+  6. Bảng 1.4: Đặc tả Use Case UC04 - Mở sổ tiết kiệm trực tuyến (Open Savings Book)
+  7. Bảng 1.5: Đặc tả Use Case UC05 - Tất toán sổ tiết kiệm (Settle Savings Book)
+  8. Bảng 1.6: Đặc tả Use Case UC06 - Nộp đơn xin cấp hạn mức vay vốn (Apply Loan)
+  9. Bảng 1.7: Đặc tả Use Case UC07 - Phê duyệt hoặc Từ chối khoản vay (Approve/Reject Loan)
+  10. Bảng 1.8: Đặc tả Use Case UC08 - Xem sao kê và tra cứu lịch sử giao dịch (View Transactions)
+  11. Bảng 2.1: Bảng cấu hình môi trường và công cụ kiểm thử MiniBank
+  12. Bảng 3.1: Bảng thiết kế kiểm thử Branch / Condition / Path cho hàm transfer()
+  13. Bảng 3.2: Bảng phân tích chi tiết lỗi phát hiện và giải pháp sửa mã nguồn (BUG-01 đến BUG-06)
+  14. Bảng 3.3: Bảng kết quả thực thi 31 ca Unit/Integration Test chi tiết
+  15. Bảng 3.4: Bảng báo cáo độ bao phủ mã nguồn JaCoCo (Coverage Report)
+  16. Bảng 3.5: Bảng ma trận điều kiện True/False kiểm thử nghiệp vụ Chuyển tiền
+  17. Bảng 3.6: Bảng ma trận điều kiện True/False kiểm thử nghiệp vụ Vay vốn
+  18. Bảng 3.7: Bảng phân tích giá trị biên (BVA 6 giá trị) - Số tiền chuyển khoản
+  19. Bảng 3.8: Bảng phân tích giá trị biên (BVA 6 giá trị) - Số tiền xin vay vốn
+  20. Bảng 3.9: Bảng phân tích giá trị biên (BVA 6 giá trị) - Kỳ hạn vay vốn
+  21. Bảng 3.10: Bảng phân tích giá trị biên (BVA 6 giá trị) - Độ tuổi khách hàng vay vốn
+  22. Bảng 3.11: Danh mục 10 kịch bản kiểm thử API tự động hóa với Postman
+  23. Bảng 3.12: Bảng kết quả đo lường hiệu năng tổng hợp từ Apache JMeter
+  24. Bảng 4.1: Bảng nhật ký lỗi tổng hợp (Defect Log Table)
+
+Total Mermaid Blocks: 26
+  Block 1: graph TD (33 lines)
+  Block 2: flowchart LR (41 lines)
+  Block 3: flowchart TD (62 lines)
+  Block 4: erDiagram (63 lines)
+  Block 5: flowchart TD (19 lines)
+  Block 6: flowchart TD (20 lines)
+  Block 7: flowchart TD (23 lines)
+  Block 8: flowchart TD (23 lines)
+  Block 9: sequenceDiagram (28 lines)
+  Block 10: sequenceDiagram (35 lines)
+  Block 11: sequenceDiagram (24 lines)
+  Block 12: sequenceDiagram (35 lines)
+  Block 13: sequenceDiagram (23 lines)
+  Block 14: flowchart TD (11 lines)
+  Block 15: flowchart TD (20 lines)
+  Block 16: flowchart TD (11 lines)
+  Block 17: stateDiagram-v2 (10 lines)
+  Block 18: flowchart TD (13 lines)
+  Block 19: flowchart TD (13 lines)
+  Block 20: flowchart TD (8 lines)
+  Block 21: flowchart LR (12 lines)
+  Block 22: flowchart TD (17 lines)
+  Block 23: sequenceDiagram (27 lines)
+  Block 24: flowchart TD (13 lines)
+  Block 25: flowchart LR (10 lines)
+  Block 26: flowchart LR (5 lines)
