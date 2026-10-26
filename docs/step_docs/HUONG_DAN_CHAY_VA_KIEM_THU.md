@@ -9,13 +9,15 @@
 
 ## 📑 MỤC LỤC
 1. [Yêu Cầu Môi Trường (Prerequisites)](#1-yêu-cầu-môi-trường-prerequisites)
-2. [Hướng Dẫn Khởi Động Hệ Thống Backend](#2-hướng-dẫn-khởi-động-hệ-thống-backend)
-3. [Hướng Dẫn Chạy Toàn Bộ Kiểm Thử Tự Động (Maven Test)](#3-hướng-dẫn-chạy-toàn-bộ-kiểm-thử-tự-động-maven-test)
-4. [Hướng Dẫn Xem Báo Cáo Đo Độ Bao Phủ Mã Nguồn (JaCoCo Coverage)](#4-hướng-dẫn-xem-báo-cáo-đo-độ-bao-phủ-mã-nguồn-jacoco-coverage)
-5. [Hướng Dẫn Chạy Kiểm Thử Tự Động Hóa API (Postman / Newman)](#5-hướng-dẫn-chạy-kiểm-thử-tự-động-hóa-api-postman--newman)
-6. [Hướng Dẫn Chạy Kiểm Thử Tải & Hiệu Năng (Apache JMeter)](#6-hướng-dẫn-chạy-kiểm-thử-tải--hiệu-năng-apache-jmeter)
-7. [Dữ Liệu Thử Nghiệm & Tài Khoản Mẫu (Test Data)](#7-dữ-liệu-thử-nghiệm--tài-khoản-mẫu-test-data)
-8. [Xử Lý Các Lỗi Thường Gặp (Troubleshooting / FAQs)](#8-xử-lý-các-lỗi-thường-gặp-troubleshooting--faqs)
+2. [Hướng Dẫn Khởi Động Hệ Thống Backend (Spring Boot Core)](#2-hướng-dẫn-khởi-động-hệ-thống-backend)
+3. [Hướng Dẫn Khởi Động Cổng Quản Trị Frontend (Admin Portal)](#3-hướng-dẫn-khởi-động-cổng-quản-trị-frontend-admin-portal)
+4. [Hướng Dẫn Chạy Toàn Bộ Kiểm Thử Tự Động (Maven Test)](#4-hướng-dẫn-chạy-toàn-bộ-kiểm-thử-tự-động-maven-test)
+5. [Hướng Dẫn Xem Báo Cáo Đo Độ Bao Phủ Mã Nguồn (JaCoCo Coverage)](#5-hướng-dẫn-xem-báo-cáo-đo-độ-bao-phủ-mã-nguồn-jacoco-coverage)
+6. [Hướng Dẫn Chạy Kiểm Thử Tự Động Hóa API (Postman / Newman)](#6-hướng-dẫn-chạy-kiểm-thử-tự-động-hóa-api-postman--newman)
+7. [Hướng Dẫn Chạy Kiểm Thử Tải & Hiệu Năng (Apache JMeter)](#7-hướng-dẫn-chạy-kiểm-thử-tải--hiệu-năng-apache-jmeter)
+8. [Hướng Dẫn Chạy Kiểm Thử Tự Động Giao Diện (Selenium & Selenium IDE)](#8-hướng-dẫn-chạy-kiểm-thử-tự-động-giao-diện-selenium--selenium-ide)
+9. [Dữ Liệu Thử Nghiệm & Tài Khoản Mẫu (Test Data)](#9-dữ-liệu-thử-nghiệm--tài-khoản-mẫu-test-data)
+10. [Xử Lý Các Lỗi Thường Gặp (Troubleshooting / FAQs)](#10-xử-lý-các-lỗi-thường-gặp-troubleshooting--faqs)
 
 ---
 
@@ -26,9 +28,14 @@ Trước khi bắt đầu, hãy đảm bảo máy tính của bạn đã cài đ
    - Kiểm tra bằng lệnh: `java -version`
    - Đảm bảo biến môi trường `JAVA_HOME` trỏ đúng vào thư mục JDK (Ví dụ: `C:\Program Files\Java\jdk-24`).
 2. **Maven Wrapper:** Có sẵn trong thư mục dự án (`mvnw.cmd` cho Windows, `mvnw` cho Linux/macOS).
-3. **Công cụ phụ trợ (Tùy chọn cho API & Performance):**
+3. **Node.js (v18.17+ hoặc v20+):** Dành cho Frontend Next.js Admin Portal. Kiểm tra bằng lệnh: `node -v` và `npm -v`.
+4. **Python (3.10+) & Selenium (v4.51+):** Dành cho kiểm thử giao diện tự động.
+   - Cài đặt thư viện: `pip install selenium`
+5. **Trình duyệt Web:** Google Chrome hoặc Microsoft Edge (phiên bản mới nhất).
+6. **Công cụ phụ trợ (Tùy chọn):**
    - **Postman Desktop** hoặc **Node.js/Newman** (để chạy API test).
    - **Apache JMeter 5.6+** (để chạy bài test tải hiệu năng).
+   - **Selenium IDE Extension** trên Chrome Web Store (để xem/chạy file `.side`).
 
 ---
 
@@ -84,7 +91,40 @@ Hệ thống đã sẵn sàng phục vụ tại địa chỉ: **`http://localhos
 
 ---
 
-## 3. Hướng Dẫn Chạy Toàn Bộ Kiểm Thử Tự Động (Maven Test)
+## 3. Hướng Dẫn Khởi Động Cổng Quản Trị Frontend (Admin Portal)
+
+Cổng quản trị MiniBank Admin Portal được xây dựng trên nền tảng Next.js 16, React 19 và Tailwind CSS 4. Cả hai đường dẫn thư mục rontend/ hoặc ontend/ đều trỏ cùng vào một thư mục vật lý (thông qua liên kết Directory Junction).
+
+### Bước 3.1: Kiểm tra cấu hình biến môi trường (.env.local)
+Trong thư mục rontend/, tệp .env.local đã được cấu hình trỏ về Backend cổng 8080:
+`ash
+NEXT_PUBLIC_API_BASE_URL=http://localhost:8080
+`
+
+### Bước 3.2: Cài đặt gói thư viện (nếu chạy lần đầu)
+Mở một cửa sổ dòng lệnh PowerShell mới và di chuyển vào thư mục frontend:
+`powershell
+cd d:\Code_Hoc\Kiemthu_MiniBank\frontend
+npm install
+`
+
+### Bước 3.3: Khởi động máy chủ phát triển Frontend
+`powershell
+npm run dev
+`
+Khi màn hình hiển thị:
+`	ext
+  ▲ Next.js 16.x.x
+  - Local:        http://localhost:3000
+  - Environments: .env.local
+ ✓ Starting...
+ ✓ Ready in 1500ms
+`
+Cổng quản trị đã sẵn sàng tại địa chỉ: **http://localhost:3000** (truy cập màn hình đăng nhập tại http://localhost:3000/login).
+
+---
+
+## 4. Hướng Dẫn Chạy Toàn Bộ Kiểm Thử Tự Động (Maven Test)
 
 Hệ thống kiểm thử đã được cấu hình chạy trên cơ sở dữ liệu ảo **H2 In-Memory Database** độc lập (`application-test.properties`), vì vậy bạn **không cần bật PostgreSQL** vẫn có thể chạy toàn bộ 31 bài test một cách hoàn hảo!
 
@@ -132,7 +172,7 @@ Nếu muốn chạy riêng một phân hệ nào đó để kiểm tra nhanh:
 
 ---
 
-## 4. Hướng Dẫn Xem Báo Cáo Đo Độ Bao Phủ Mã Nguồn (JaCoCo Coverage)
+## 5. Hướng Dẫn Xem Báo Cáo Đo Độ Bao Phủ Mã Nguồn (JaCoCo Coverage)
 
 Sau khi chạy lệnh `.\mvnw.cmd test`, plugin JaCoCo sẽ tự động tổng hợp độ bao phủ mã nguồn theo dòng lệnh và rẽ nhánh.
 
@@ -150,7 +190,7 @@ Sau khi chạy lệnh `.\mvnw.cmd test`, plugin JaCoCo sẽ tự động tổng 
 
 ---
 
-## 5. Hướng Dẫn Chạy Kiểm Thử Tự Động Hóa API (Postman / Newman)
+## 6. Hướng Dẫn Chạy Kiểm Thử Tự Động Hóa API (Postman / Newman)
 
 Tệp kịch bản kiểm thử API chuẩn Postman Collection đã được tạo sẵn tại:  
 📄 **[`MiniBank_API_Automation.postman_collection.json`](file:///d:/Code_Hoc/Kiemthu_MiniBank/MiniBank_API_Automation.postman_collection.json)**
@@ -178,7 +218,7 @@ Start-Process "target\api-report.html"
 
 ---
 
-## 6. Hướng Dẫn Chạy Kiểm Thử Tải & Hiệu Năng (Apache JMeter)
+## 7. Hướng Dẫn Chạy Kiểm Thử Tải & Hiệu Năng (Apache JMeter)
 
 Tệp kịch bản kiểm thử tải Apache JMeter đã được tạo sẵn tại:  
 📄 **[`MiniBank_Performance_TestPlan.jmx`](file:///d:/Code_Hoc/Kiemthu_MiniBank/MiniBank_Performance_TestPlan.jmx)**
@@ -204,7 +244,47 @@ Start-Process "target\jmeter-dashboard\index.html"
 
 ---
 
-## 7. Dữ Liệu Thử Nghiệm & Tài Khoản Mẫu (Test Data)
+## 8. Hướng Dẫn Chạy Kiểm Thử Tự Động Giao Diện (Selenium & Selenium IDE)
+
+### 8.1. Chạy 10 ca kiểm thử tự động với Selenium WebDriver (Python)
+
+Toàn bộ 10 ca kiểm thử UI (UI_TC_01 đến UI_TC_10) đã được đóng gói trong tệp 	est_automation/selenium/test_admin_portal_ui.py.
+
+1. **Cài đặt thư viện Selenium (nếu chưa cài):**
+   `powershell
+   pip install selenium
+   `
+
+2. **Đảm bảo Frontend đang chạy tại cổng 3000** (xem Mục 3).
+
+3. **Chạy bộ kiểm thử tự động:**
+   `powershell
+   cd d:\Code_Hoc\Kiemthu_MiniBank
+   python test_automation/selenium/test_admin_portal_ui.py
+   `
+   *Script tự động cấu hình chạy ở chế độ Headless Chrome (--headless=new) và in kết quả chi tiết từng ca test:*
+   `	ext
+   Ran 10 tests in 8.421s
+
+   OK
+   `
+
+---
+
+### 8.2. Chạy kịch bản trực quan với Selenium IDE
+
+Dự án kiểm thử Selenium IDE đã được thiết lập sẵn trong tệp 	est_automation/selenium/MiniBank_Admin_UI_Test.side.
+
+1. Mở trình duyệt Google Chrome hoặc Microsoft Edge đã cài tiện ích mở rộng **Selenium IDE**.
+2. Nhấp vào biểu tượng Selenium IDE trên thanh công cụ trình duyệt.
+3. Chọn **'Open an existing project'** và duyệt đến tệp:
+   d:\Code_Hoc\Kiemthu_MiniBank\test_automation\selenium\MiniBank_Admin_UI_Test.side
+4. Chọn kịch bản kiểm thử trong danh sách bên trái (Ví dụ: TC01_Login_Admin_Success hoặc TC02_Navigate_Loan_Approval).
+5. Bấm nút **'Run current test'** (hoặc 'Run all tests') để quan sát trình duyệt tự động điền form, click nút và xác thực các điều kiện giao diện.
+
+---
+
+## 9. Dữ Liệu Thử Nghiệm & Tài Khoản Mẫu (Test Data)
 
 Hệ thống đã nạp sẵn các tài khoản mẫu sau để kiểm thử thủ công qua Swagger/Postman:
 
@@ -242,7 +322,7 @@ Hệ thống đã nạp sẵn các tài khoản mẫu sau để kiểm thử th�
 
 ---
 
-## 8. Xử Lý Các Lỗi Thường Gặp (Troubleshooting / FAQs)
+## 10. Xử Lý Các Lỗi Thường Gặp (Troubleshooting / FAQs)
 
 ### ❓ Lỗi 1: `The JAVA_HOME environment variable is not defined correctly`
 - **Nguyên nhân:** Windows chưa nhận diện đường dẫn cài đặt Java JDK trong biến môi trường.

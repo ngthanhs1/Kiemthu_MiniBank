@@ -36,3 +36,6 @@ build/
 .env
 .env.*
 !.env.example
+
+# Directory Junction Alias for frontend
+/fontend

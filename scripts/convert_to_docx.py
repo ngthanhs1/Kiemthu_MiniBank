@@ -449,8 +449,14 @@ def build_docx():
     print(f"Generated successfully: {DOCX_FILE} ({os.path.getsize(DOCX_FILE)} bytes)")
 
     import shutil
-    shutil.copyfile(DOCX_FILE, ARTIFACT_DOCX)
-    print(f"Copied to artifact directory: {ARTIFACT_DOCX}")
+    final_docs_docx = r"d:\Code_Hoc\Kiemthu_MiniBank\docs\final_report\BAO_CAO_KIEM_DINH_CHAT_LUONG_PHAN_MEM_MINIBANK.docx"
+    os.makedirs(os.path.dirname(final_docs_docx), exist_ok=True)
+    shutil.copyfile(DOCX_FILE, final_docs_docx)
+    print(f"Copied to final docs directory: {final_docs_docx}")
+
+    if os.path.exists(os.path.dirname(ARTIFACT_DOCX)):
+        shutil.copyfile(DOCX_FILE, ARTIFACT_DOCX)
+        print(f"Copied to artifact directory: {ARTIFACT_DOCX}")
 
 if __name__ == "__main__":
     build_docx()

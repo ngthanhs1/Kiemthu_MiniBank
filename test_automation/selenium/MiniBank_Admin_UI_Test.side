@@ -1,0 +1,79 @@
+{
+  "id": "e4c5b1a2-3f8d-4a1e-9b2c-7d8e9f0a1b2c",
+  "version": "2.0",
+  "name": "MiniBank_Admin_Portal_UITests",
+  "url": "http://localhost:3000",
+  "tests": [
+    {
+      "id": "tc-ui-01-login-display",
+      "name": "UI_TC_01_Kiem_Tra_Giao_Dien_Dang_Nhap",
+      "commands": [
+        {"id": "1", "command": "open", "target": "/login", "value": ""},
+        {"id": "2", "command": "setWindowSize", "target": "1920x1080", "value": ""},
+        {"id": "3", "command": "assertElementPresent", "target": "css=input[type='text'], input#identifier", "value": ""},
+        {"id": "4", "command": "assertElementPresent", "target": "css=input[type='password'], input#password", "value": ""},
+        {"id": "5", "command": "assertElementPresent", "target": "css=button[type='submit']", "value": ""}
+      ]
+    },
+    {
+      "id": "tc-ui-02-login-fail",
+      "name": "UI_TC_02_Dang_Nhap_Sai_Mat_Khau",
+      "commands": [
+        {"id": "1", "command": "open", "target": "/login", "value": ""},
+        {"id": "2", "command": "type", "target": "css=input[type='text'], input#identifier", "value": "admin"},
+        {"id": "3", "command": "type", "target": "css=input[type='password'], input#password", "value": "WrongPassword@123"},
+        {"id": "4", "command": "click", "target": "css=button[type='submit']", "value": ""},
+        {"id": "5", "command": "pause", "target": "1000", "value": ""},
+        {"id": "6", "command": "assertText", "target": "css=.text-red-600, .text-sm.text-red-500, [role='alert']", "value": "Login failed"}
+      ]
+    },
+    {
+      "id": "tc-ui-04-login-success",
+      "name": "UI_TC_04_Dang_Nhap_Thanh_Cong",
+      "commands": [
+        {"id": "1", "command": "open", "target": "/login", "value": ""},
+        {"id": "2", "command": "type", "target": "css=input[type='text'], input#identifier", "value": "admin"},
+        {"id": "3", "command": "type", "target": "css=input[type='password'], input#password", "value": "admin123"},
+        {"id": "4", "command": "click", "target": "css=button[type='submit']", "value": ""},
+        {"id": "5", "command": "pause", "target": "2000", "value": ""},
+        {"id": "6", "command": "assertElementPresent", "target": "css=header, nav, [data-testid='admin-shell']", "value": ""}
+      ]
+    },
+    {
+      "id": "tc-ui-06-loan-approval",
+      "name": "UI_TC_06_Xem_Danh_Sach_Duyet_Vay",
+      "commands": [
+        {"id": "1", "command": "open", "target": "/requests/loan-approval", "value": ""},
+        {"id": "2", "command": "pause", "target": "1000", "value": ""},
+        {"id": "3", "command": "assertElementPresent", "target": "css=table, [data-testid='loan-table']", "value": ""}
+      ]
+    },
+    {
+      "id": "tc-ui-07-saving-approval",
+      "name": "UI_TC_07_Xem_Danh_Sach_Duyet_Tiet_Kiem",
+      "commands": [
+        {"id": "1", "command": "open", "target": "/requests/saving-approval", "value": ""},
+        {"id": "2", "command": "pause", "target": "1000", "value": ""},
+        {"id": "3", "command": "assertElementPresent", "target": "css=table, [data-testid='saving-table']", "value": ""}
+      ]
+    }
+  ],
+  "suites": [
+    {
+      "id": "suite-admin-ui",
+      "name": "MiniBank Admin Portal UI Test Suite",
+      "persistSession": false,
+      "parallel": false,
+      "timeout": 300,
+      "tests": [
+        "tc-ui-01-login-display",
+        "tc-ui-02-login-fail",
+        "tc-ui-04-login-success",
+        "tc-ui-06-loan-approval",
+        "tc-ui-07-saving-approval"
+      ]
+    }
+  ],
+  "urls": ["http://localhost:3000"],
+  "plugins": []
+}
