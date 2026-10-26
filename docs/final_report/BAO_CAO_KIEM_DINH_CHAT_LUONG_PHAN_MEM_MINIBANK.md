@@ -187,7 +187,7 @@
 Trong kỷ nguyên số hóa ngành tài chính - ngân hàng (Fintech), hệ thống ngân hàng số đóng vai trò xương sống trong việc cung cấp dịch vụ tiền tệ tức thời, thuận tiện và an toàn tuyệt đối. Hệ thống **MiniBank** là nền tảng ngân hàng số cốt lõi (Digital Banking Core Backend) được xây dựng theo kiến trúc dịch vụ phân tầng (Layered Architecture) hiện đại, đáp ứng các tiêu chuẩn khắt khe về an toàn bảo mật, toàn vẹn giao dịch tài chính (ACID) và hiệu năng xử lý cao với độ trễ thấp.
 
 ### Các đặc tính công nghệ cốt lõi của MiniBank:
-1. **Nền tảng & Ngôn ngữ:** Java 21 LTS kết hợp với framework Spring Boot 3.2.x, tối ưu hóa hiệu suất với Virtual Threads và Garbage Collection tiên tiến.
+1. **Nền tảng & Ngôn ngữ:** Java 17 LTS trở lên (tương thích toàn diện Java 17, 21, 24) kết hợp với framework Spring Boot 3.2.x, tối ưu hóa hiệu suất với Virtual Threads và Garbage Collection tiên tiến.
 2. **Quản lý dữ liệu & Toàn vẹn giao dịch:** Sử dụng Spring Data JPA kết hợp ORM Hibernate. Hệ thống hoạt động trên PostgreSQL 16 (cho môi trường Production) và H2 In-Memory Database (cho môi trường kiểm thử tự động).
 3. **Bảo mật & Định danh:** Cơ chế Spring Security 6 tích hợp Stateless Authentication qua JSON Web Token (JWT) có chữ ký số HMAC-SHA256. Mật khẩu người dùng được băm một chiều bằng thuật toán BCrypt với Salt ngẫu nhiên và Work Factor là 12.
 4. **Kiểm soát đồng thời (Concurrency Control):** Ứng dụng kỹ thuật khóa bi quan tầng cơ sở dữ liệu (`LockModeType.PESSIMISTIC_WRITE` tương đương cú pháp `SELECT ... FOR UPDATE` trong SQL) để loại bỏ triệt để nguy cơ thất thoát tài sản (Double Spending / Race Condition).
@@ -1061,7 +1061,7 @@ ightarrow 	ext{End}$ (Giao dịch chuyển tiền thành công trọn vẹn).
 flowchart TD
     Change["Lập trình viên sửa lỗi mã nguồn hoặc thêm tính năng"] --> Commit["Commit mã nguồn lên hệ thống quản lý phiên bản (Git)"]
     Commit --> BuildTrigger["Kích hoạt tiến trình Build tự động (Maven Lifecycle)"]
-    BuildTrigger --> Compile["Biên dịch mã nguồn Java 21"]
+    BuildTrigger --> Compile["Biên dịch mã nguồn Java 17+"]
     Compile --> ExecUnit["Tự động chạy toàn bộ 31 ca Unit/Integration Tests"]
     ExecUnit --> CheckPass{"100% ca test đều PASSED?"}
     CheckPass -- "Không" --> BuildFail["HỦY BUILD: Cảnh báo lỗi hồi quy & Rollback"] --> FixBack["Dev phân tích và sửa lỗi hồi quy"] --> Change
