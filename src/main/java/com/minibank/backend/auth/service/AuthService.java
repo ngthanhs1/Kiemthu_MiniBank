@@ -128,8 +128,9 @@ public class AuthService {
 
 	@Transactional(readOnly = true)
 	public AuthResponse loginAdmin(LoginRequest request) {
-		String username = request.identifier().trim();
-		AdminUser adminUser = adminUsers().findByUsernameIgnoreCase(username)
+		String identifier = request.identifier().trim();
+		AdminUser adminUser = adminUsers().findByUsernameIgnoreCase(identifier)
+			.or(() -> adminUsers().findByEmailIgnoreCase(identifier))
 			.orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid credentials"));
 
 		if (!passwordEncoder.matches(request.password(), adminUser.getPasswordHash())) {

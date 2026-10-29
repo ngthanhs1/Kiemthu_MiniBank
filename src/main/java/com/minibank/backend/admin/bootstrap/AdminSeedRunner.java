@@ -78,6 +78,29 @@ public class AdminSeedRunner implements CommandLineRunner {
 				.role(superAdminRole)
 				.build());
 		}
+
+		// Seed secondary admin account: 'admin' with password 'admin123'
+		AdminUser adminSimple = adminUserRepository.findByUsernameIgnoreCase("admin")
+			.orElseGet(() -> adminUserRepository.save(AdminUser.builder()
+				.username("admin")
+				.email("admin@minibank.com")
+				.passwordHash(passwordEncoder.encode("admin123"))
+				.fullName("System Administrator")
+				.status("active")
+				.build()));
+
+		if (!adminUserRoleRepository.existsByAdminUserIdAndRoleId(adminSimple.getId(), adminRole.getId())) {
+			adminUserRoleRepository.save(AdminUserRole.builder()
+				.adminUser(adminSimple)
+				.role(adminRole)
+				.build());
+		}
+		if (!adminUserRoleRepository.existsByAdminUserIdAndRoleId(adminSimple.getId(), superAdminRole.getId())) {
+			adminUserRoleRepository.save(AdminUserRole.builder()
+				.adminUser(adminSimple)
+				.role(superAdminRole)
+				.build());
+		}
 	}
 
 	private Role upsertRole(String code, String name, String description) {

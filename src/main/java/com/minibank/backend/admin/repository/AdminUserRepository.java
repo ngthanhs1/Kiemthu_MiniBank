@@ -9,6 +9,8 @@ import com.minibank.backend.admin.entity.AdminUser;
 public interface AdminUserRepository extends JpaRepository<AdminUser, Long> {
 	Optional<AdminUser> findByUsernameIgnoreCase(String username);
 
+	Optional<AdminUser> findByEmailIgnoreCase(String email);
+
 	Optional<AdminUser> findFirstByStatusIgnoreCaseOrderByIdAsc(String status);
 
 	Optional<AdminUser> findFirstByOrderByIdAsc();
