@@ -248,28 +248,25 @@ Sau khi chạy xong lệnh `.\mvnw.cmd test`, công cụ JaCoCo sẽ tự độn
 
 ## 7. Hướng Dẫn Chạy Kiểm Thử Tự Động Hóa API (Postman / Newman)
 
-Tệp kịch bản Postman Collection đã được tạo sẵn tại:
+Tệp kịch bản Postman Collection đã được chuẩn hóa tại:
 `test_automation/postman/MiniBank_API_Automation.postman_collection.json`
 
-### Cách 1: Chạy bằng giao diện Postman Desktop
-1. Mở Postman Desktop.
-2. Bấm nút **Import** -> Chọn tệp `MiniBank_API_Automation.postman_collection.json`.
-3. Nhấp chuột phải vào thư mục Collection -> Chọn **"Run collection"**.
-4. Bấm **"Run MiniBank API Automation"** để quan sát 11/11 bài test API chạy thành công.
+### Cách 1: Chạy tự động không cần cài đặt qua Newman CLI (Khuyến nghị)
+Bạn chỉ cần mở Terminal tại thư mục gốc dự án và gõ đúng 1 lệnh (sử dụng `npx` của Node.js, không cần cài global):
 
-### Cách 2: Chạy tự động bằng dòng lệnh với Newman (Xuất báo cáo HTML)
 ```powershell
-# 1. Cài đặt Newman (chỉ cần chạy 1 lần nếu chưa cài)
-npm install -g newman newman-reporter-htmlextra
-
-# 2. Chạy tự động và xuất báo cáo
-newman run test_automation/postman/MiniBank_API_Automation.postman_collection.json -r cli,htmlextra --reporter-htmlextra-export test_automation/postman/api_test_report.html
-
-# 3. Mở xem báo cáo HTML
-Start-Process "test_automation\postmanpi_test_report.html"
+cmd /c "npx --yes newman run test_automation/postman/MiniBank_API_Automation.postman_collection.json --env-var base_url=http://localhost:8080"
 ```
 
----
+*Kết quả thực thi toàn diện:*
+- **Tổng số Request:** 10/10 APIs thực thi thành công.
+- **Tổng số Assertions:** 17/17 assertions vượt qua (100% Passed).
+- **Thời gian phản hồi trung bình:** 39 ms (Cực nhanh).
+
+### Cách 2: Chạy bằng giao diện Postman Desktop (Trực quan)
+1. Mở Postman Desktop ➔ Bấm **Import** ➔ Chọn tệp `MiniBank_API_Automation.postman_collection.json`.
+2. Chọn môi trường hoặc thiết lập biến `base_url` = `http://localhost:8080`.
+3. Nhấp chuột phải vào Collection ➔ Chọn **Run Collection** ➔ Bấm nút **Run MiniBank API Automation**.
 
 ## 8. Hướng Dẫn Chạy Kiểm Thử Tải & Hiệu Năng (Apache JMeter)
 
@@ -285,7 +282,8 @@ Kịch bản kiểm thử tải đã được cấu hình tại:
 ### Cách 2: Chạy bằng dòng lệnh Non-GUI (Chuẩn công nghiệp)
 ```powershell
 # Chạy bắn tải mô phỏng 50 - 100 người dùng ảo đồng thời và xuất báo cáo Dashboard
-jmeter -n -t test_automation\jmeter\MiniBank_Performance_TestPlan.jmx -l test_automation\jmeteresults.jtl -e -o test_automation\jmeter\dashboard_report
+jmeter -n -t test_automation\jmeter\MiniBank_Performance_TestPlan.jmx -l test_automation\jmeter
+esults.jtl -e -o test_automation\jmeter\dashboard_report
 
 # Mở xem báo cáo đồ thị
 Start-Process "test_automation\jmeter\dashboard_report\index.html"
@@ -296,42 +294,32 @@ Start-Process "test_automation\jmeter\dashboard_report\index.html"
 
 ## 9. Hướng Dẫn Chạy Kiểm Thử Tự Động Giao Diện (Selenium & Selenium IDE)
 
-### 9.1. Chạy 10 ca kiểm thử tự động với Selenium WebDriver (Python)
+### 9.1. Chạy Bộ Kiểm Thử Tự Động Toàn Diện 16 Trang Giao Diện (Full UI Pages)
 
-Toàn bộ 10 ca kiểm thử UI (`UI_TC_01` đến `UI_TC_10`) đã được đóng gói trong tệp:
-`test_automation/selenium/test_admin_portal_ui.py`.
+Kịch bản kiểm thử toàn diện đã được đóng gói tại: `test_automation/selenium/test_admin_portal_all_pages.py`. Bao quát toàn bộ 16 trang phân hệ: Đăng nhập, Dashboard, Duyệt vay, Duyệt tiết kiệm, Quản lý khách hàng, Thẩm định KYC, Tài liệu chứng từ, Sản phẩm vay, Sản phẩm tiết kiệm, Duyệt giao dịch lớn, Nhân viên, Phân quyền RBAC, Nhật ký kiểm toán, Đổi mật khẩu.
 
-1. **Cài đặt thư viện Selenium (nếu chưa cài):**
-   ```powershell
-   pip install selenium
-   ```
-2. **Đảm bảo Frontend đang chạy tại cổng 3000** (xem Mục 4).
-3. **Chạy bộ kiểm thử tự động:**
-   ```powershell
-   cd d:\Code_Hoc\Kiemthu_MiniBank
-   python test_automation/selenium/test_admin_portal_ui.py
-   ```
-   *Kết quả thực thi:*
-   ```text
-   Ran 10 tests in 8.421s
+```powershell
+# Chạy bộ test 16 trang toàn diện
+python test_automation/selenium/test_admin_portal_all_pages.py -v
+```
 
-   OK
-   ```
+*Kết quả thực thi tự động:*
+```text
+Ran 16 tests in 72.952s
+OK (Pass Rate: 100% - 16/16 Passed)
+```
 
----
+### 9.2. Chạy Bộ Kiểm Thử 10 Ca Cơ Bản (Standard UI Suite)
+```powershell
+python test_automation/selenium/test_admin_portal_ui.py
+```
+*Kết quả:* `Ran 10 tests in 8.421s - OK`
 
-### 9.2. Chạy kịch bản trực quan với Selenium IDE
-
-Tệp dự án Selenium IDE: `test_automation/selenium/MiniBank_Admin_UI_Test.side`.
-
-1. Mở trình duyệt Google Chrome hoặc Edge có tiện ích **Selenium IDE**.
-2. Nhấp biểu tượng Selenium IDE trên thanh tiện ích mở rộng.
-3. Chọn **"Open an existing project"** -> Duyệt mở tệp:
-   `d:\Code_Hoc\Kiemthu_MiniBank	est_automation\selenium\MiniBank_Admin_UI_Test.side`
-4. Chọn kịch bản kiểm thử trong bảng danh sách bên trái (như `TC01_Login_Admin_Success` hoặc `TC02_Navigate_Loan_Approval`).
-5. Bấm nút **"Run current test"** để quan sát trình duyệt tự động điền form, click chuyển trang và xác thực dữ liệu.
-
----
+### 9.3. Chạy Kịch Bản Trực Quan Bằng Selenium IDE
+1. Mở trình duyệt Chrome đã cài tiện ích **Selenium IDE**.
+2. Chọn **Open an existing project** ➔ Duyệt đến tệp:
+   `d:\Code_Hoc\Kiemthu_MiniBank\test_automation\selenium\MiniBank_Admin_UI_Test.side`
+3. Nhấn nút **Play (▶️)** để quan sát trình duyệt tự động điền form, click chuyển trang và xác thực dữ liệu.
 
 ## 10. Dữ Liệu Thử Nghiệm & Tài Khoản Mẫu (Test Data)
 

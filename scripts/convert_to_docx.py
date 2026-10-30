@@ -226,6 +226,21 @@ def build_docx():
             idx += 1
             continue
 
+        # Check for Markdown Image ![caption](path)
+        img_match = re.search(r'!\[(.*?)\]\((.*?)\)', line)
+        if img_match:
+            img_rel = img_match.group(2).strip()
+            img_path = img_rel if os.path.isabs(img_rel) else os.path.join(r"d:\Code_Hoc\Kiemthu_MiniBank", img_rel)
+            if os.path.exists(img_path) and os.path.getsize(img_path) > 1000:
+                p_img = doc.add_paragraph()
+                p_img.alignment = WD_ALIGN_PARAGRAPH.CENTER
+                p_img.paragraph_format.space_before = Pt(8)
+                p_img.paragraph_format.space_after = Pt(2)
+                run = p_img.add_run()
+                run.add_picture(img_path, width=Inches(5.8))
+            idx += 1
+            continue
+
         # Check for code blocks
         if line.startswith("```"):
             if not in_code:
@@ -445,18 +460,26 @@ def build_docx():
         idx += 1
 
     print("Saving highly-polished .docx file...")
-    doc.save(DOCX_FILE)
-    print(f"Generated successfully: {DOCX_FILE} ({os.path.getsize(DOCX_FILE)} bytes)")
-
     import shutil
     final_docs_docx = r"d:\Code_Hoc\Kiemthu_MiniBank\docs\final_report\BAO_CAO_KIEM_DINH_CHAT_LUONG_PHAN_MEM_MINIBANK.docx"
     os.makedirs(os.path.dirname(final_docs_docx), exist_ok=True)
-    shutil.copyfile(DOCX_FILE, final_docs_docx)
-    print(f"Copied to final docs directory: {final_docs_docx}")
+    
+    saved_successfully = False
+    try:
+        doc.save(DOCX_FILE)
+        print(f"Generated successfully: {DOCX_FILE} ({os.path.getsize(DOCX_FILE)} bytes)")
+        saved_successfully = True
+    except PermissionError:
+        print(f"[NOTE] {DOCX_FILE} is currently open in Microsoft Word. Saving to final_report instead...")
+
+    # Always save to final_report
+    doc.save(final_docs_docx)
+    print(f"Saved to final docs directory: {final_docs_docx} ({os.path.getsize(final_docs_docx)} bytes)")
 
     if os.path.exists(os.path.dirname(ARTIFACT_DOCX)):
-        shutil.copyfile(DOCX_FILE, ARTIFACT_DOCX)
-        print(f"Copied to artifact directory: {ARTIFACT_DOCX}")
+        doc.save(ARTIFACT_DOCX)
+        print(f"Saved to artifact directory: {ARTIFACT_DOCX}")
+
 
 if __name__ == "__main__":
     build_docx()
