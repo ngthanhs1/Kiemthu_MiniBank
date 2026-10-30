@@ -25,10 +25,11 @@
 | **Slide 11** | Kiểm Thử Giao Diện Người Dùng (Selenium WebDriver) | 1.0 phút | Phạm vi 16 trang phân hệ Admin Portal toàn diện |
 | **Slide 12** | Giao Diện Trực Quan Các Phân Hệ Cốt Lõi | 1.0 phút | Màn hình Đăng nhập, Dashboard, Duyệt vay, Tiết kiệm, Audit |
 | **Slide 13** | **[LIVE DEMO 2] THỰC NGHIỆM GIAO DIỆN SELENIUM & IDE** | **2.5 phút** | **Chuyển màn hình Demo Selenium WebDriver & Selenium IDE** |
-| **Slide 14** | Nhật Ký Phát Hiện & Xử Lý Lỗi (Defect Log) | 1.0 phút | 6 lỗi nghiêm trọng (BUG-01 đến BUG-06) đã xử lý triệt để |
-| **Slide 15** | Đánh Giá Chất Lượng Theo Chuẩn ISO/IEC 25010 | 1.0 phút | 7 đặc tính chất lượng phần mềm đạt mức Xuất sắc |
-| **Slide 16** | Tổng Kết Kết Quả & Định Hướng Phát Triển | 1.0 phút | 57/57 ca test Passed 100%, hoàn thành mục tiêu đồ án |
-| **Slide 17** | Lời Cảm Ơn & Phiên Hỏi Đáp (Q&A) | - | Sẵn sàng giải đáp câu hỏi của Hội đồng bảo vệ |
+| **Slide 14** | **Phân Bổ 57 Ca Kiểm Thử & Kết Quả Tổng Hợp (Mục 4.1)** | **1.0 phút** | **Biểu đồ tròn 57 ca Passed 100%, bảng thống kê tỷ lệ từng loại kiểm thử** |
+| **Slide 15** | Nhật Ký Phát Hiện & Xử Lý Lỗi (Defect Log) | 1.0 phút | 6 lỗi nghiêm trọng (BUG-01 đến BUG-06) đã xử lý triệt để |
+| **Slide 16** | Đánh Giá Chất Lượng Theo Chuẩn ISO/IEC 25010 | 1.0 phút | 7 đặc tính chất lượng phần mềm đạt mức Xuất sắc |
+| **Slide 17** | Tổng Kết Kết Quả & Định Hướng Phát Triển | 1.0 phút | 57/57 ca test Passed 100%, hoàn thành mục tiêu đồ án |
+| **Slide 18** | Lời Cảm Ơn & Phiên Hỏi Đáp (Q&A) | - | Sẵn sàng giải đáp câu hỏi của Hội đồng bảo vệ |
 
 ---
 
@@ -42,13 +43,13 @@ SLIDE 01: TRANG BÌA & GIỚI THIỆU ĐỀ TÀI
 - Logo Trường Đại học Phenikaa & Khoa Công nghệ Thông tin.
 - Tên đề tài: BÁO CÁO KIỂM ĐỊNH VÀ ĐÁNH GIÁ CHẤT LƯỢNG HỆ THỐNG NGÂN HÀNG SỐ TRỰC TUYẾN MINIBANK
 - Giảng viên hướng dẫn: TS. Trịnh Thanh Bình
-- Nhóm sinh viên thực hiện: Nhóm Kiểm thử Phần mềm Chuyên sâu
+- Nhóm sinh viên thực hiện: Nhóm 6 (Nguyễn Văn Thành - 23010191 & Hà Xuân Đại - 23010494)
 - Chuyên ngành: Kỹ thuật Phần mềm / Công nghệ Thông tin
 - Năm học: 2025 - 2026
 
 [Kịch bản lời thoại của người thuyết trình - 60 giây]:
 "Kính thưa Thầy/Cô trong Hội đồng chấm đề tài, cùng toàn thể các bạn sinh viên!
-Hôm nay, nhóm chúng em xin phép được trình bày báo cáo tổng kết đề tài: 'Kiểm định và đánh giá chất lượng hệ thống ngân hàng số trực tuyến MiniBank', dưới sự hướng dẫn khoa học tận tình của Thầy TS. Trịnh Thanh Bình.
+Hôm nay, Nhóm 6 chúng em gồm 2 thành viên: Nguyễn Văn Thành (23010191) và Hà Xuân Đại (23010494) xin phép được trình bày báo cáo tổng kết đề tài: 'Kiểm định và đánh giá chất lượng hệ thống ngân hàng số trực tuyến MiniBank', dưới sự hướng dẫn khoa học tận tình của Thầy TS. Trịnh Thanh Bình.
 Trong bối cảnh chuyển đổi số ngành tài chính - ngân hàng đang diễn ra mạnh mẽ, chất lượng phần mềm không chỉ quyết định trải nghiệm người dùng mà còn là yếu tố sống còn liên quan trực tiếp đến an toàn tài sản của khách hàng và tính ổn định của hệ thống tài chính. Trong buổi báo cáo ngày hôm nay, nhóm em sẽ trình bày toàn bộ quy trình kiểm định chất lượng chuyên sâu từ mã nguồn Backend đến giao diện Frontend, cùng các phần trình diễn thực nghiệm trực tiếp ngay trên hệ thống."
 ```
 
@@ -222,27 +223,38 @@ SLIDE 10: [CHUYỂN TIẾP DEMO 1] LIVE DEMO KIỂM THỬ TỰ ĐỘNG API POSTM
 [Nội dung hiển thị trên Slide]:
 - Biểu tượng LIVE DEMO: AUTOMATED API TESTING DEMONSTRATION
 - Các nội dung sẽ thực hiện trình diễn:
-  1. Chạy tự động trọn bộ 10 API qua Postman Collection Runner.
-  2. Bắn yêu cầu đơn lẻ và kiểm tra cấu trúc JWT Bearer Token tại `TC_API_ADM_01`.
-  3. Kiểm tra tính bảo mật chặn nặc danh `TC_API_SEC_01` (HTTP 401 Unauthorized).
-  4. Thực thi dòng lệnh siêu tốc qua Newman CLI trên Terminal.
+  1. Chạy tự động trọn bộ 10 API qua Postman Collection Runner (17/17 Assertions Passed).
+  2. Bắn yêu cầu đơn lẻ TC_API_ADM_01 kiểm tra xác thực & cấp JWT Bearer Token (200 OK).
+  3. Bắn yêu cầu đơn lẻ TC_API_ADM_02 truy xuất số liệu KPI Dashboard thời gian thực (200 OK).
+  4. Bắn yêu cầu tiêu cực TC_API_SEC_01 kiểm tra chặn truy cập nặc danh không có token (401 Unauthorized).
+  (Bổ trợ: Thực thi dòng lệnh tự động siêu tốc qua Newman CLI trên Terminal).
 
 [Kịch bản lời thoại của người thuyết trình khi thao tác Live Demo - 2.5 phút]:
 (Người thuyết trình nhấn Alt + Tab chuyển sang cửa sổ Postman Desktop):
 
-"Kính thưa Thầy/Cô, trên màn hình hiện tại là giao diện Postman Desktop chứa bộ sưu tập 'MiniBank API Automation Test Suite'.
-- Bước 1: Em nhấp chuột phải vào Collection và bấm 'Run collection'. Giữ nguyên 10 API và bấm nút 'Run MiniBank API Automation'. Như Thầy/Cô có thể quan sát, chỉ sau hơn 1 giây, toàn bộ 17 điều kiện kiểm tra đã hiển thị màu xanh lá: Passed 17, Failed 0, thời gian phản hồi trung bình 38ms.
-- Bước 2: Em mở chi tiết request 'TC_API_ADM_01: Admin Login' và bấm Send. Máy chủ lập tức phản hồi mã trạng thái 200 OK trong 118ms, kèm theo chuỗi Bearer Token mã hóa JWT và danh sách quyền hạn Quản trị viên.
-- Bước 3: Để kiểm tra tính bảo mật, em chuyển sang request 'TC_API_SEC_01: Protected API without Token' và bấm Send. Vì không có Token xác thực, bộ lọc Spring Security đã chặn đứng yêu cầu và trả về lỗi 401 Unauthorized trong vòng 3ms.
-- Bước 4: Cuối cùng, để chứng minh khả năng chạy tự động trong CI/CD, em chuyển sang cửa sổ PowerShell và gõ lệnh:
-  cmd /c 'npx --yes newman run test_automation/postman/MiniBank_API_Automation.postman_collection.json --env-var base_url=http://localhost:8080'
-  Bảng kết quả tổng hợp của Newman in ra khung ASCII tuyệt đẹp với 10/10 requests thành công và 17/17 assertions Passed!"
+"Kính thưa Thầy/Cô và Hội đồng, sau đây nhóm em xin phép được trình diễn trực tiếp kịch bản kiểm thử tự động hóa API trên công cụ Postman:
+
+- Bước 1 [Collection Runner - Tổng quan toàn bộ bộ test]:
+  'Đầu tiên, em mở bộ sưu tập MiniBank API Automation Test Suite. Bộ test này bao gồm 10 API then chốt thuộc 4 phân nhóm: Quản trị, Xác thực Mobile, Sản phẩm ngân hàng và An toàn bảo mật.
+  Em nhấp chuột vào nút 'Run collection', giữ nguyên 10 API với 17 Assertions và bấm 'Run MiniBank API Automation'.
+  Như Thầy/Cô có thể quan sát trực tiếp trên màn hình, chỉ sau 1.3 giây, bộ Runner đã hoàn thành xuất sắc 10/10 requests với toàn bộ 17/17 điều kiện Assertions đều hiển thị màu xanh lá Passed! Thời gian phản hồi trung bình chỉ 38 mili-giây, không có bất kỳ lỗi nào xảy ra.'
+
+- Bước 2 [Request TC_API_ADM_01 - Đăng nhập Quản trị & Cấp phát JWT Token]:
+  'Tiếp theo, em mở chi tiết request thứ nhất: TC_API_ADM_01 - Admin Login. Đây là phương thức POST gửi tới endpoint /api/admin/auth/login với định danh là admin và mật khẩu admin123.
+  Em bấm nút Send! Kết quả trả về mã HTTP 200 OK trong 118 mili-giây. Tại phần Body định dạng JSON, hệ thống trả về tokenType là Bearer cùng chuỗi accessToken được mã hóa chuẩn JWT. Đồng thời, đối tượng user trả về đúng vai trò ADMIN, SUPER_ADMIN cùng đầy đủ danh sách quyền hạn quản trị như Xem dashboard, Phê duyệt khoản vay và Cấu hình lãi suất.'
+
+- Bước 3 [Request TC_API_ADM_02 - Truy xuất số liệu KPI Dashboard]:
+  'Bước thứ 3, em kiểm tra khả năng truy xuất dữ liệu nghiệp vụ bằng request TC_API_ADM_02 - Get Dashboard Stats qua phương thức GET tới /api/admin/dashboard. Request này đã được tự động kế thừa chuỗi Bearer Token vừa đăng nhập ở bước trước.
+  Em bấm Send! Máy chủ phản hồi mã HTTP 200 OK chỉ trong 48 mili-giây. Dữ liệu trả về cấu trúc JSON chứa đầy đủ các chỉ số KPI tài chính thời gian thực: số lượng khách hàng, số hồ sơ eKYC đang chờ xử lý, số lượng tài khoản hoạt động và các khoản vay đang chờ phê duyệt. Điều này chứng minh tầng Service và Database xử lý truy vấn dữ liệu hoàn toàn chính xác.'
+
+- Bước 4 [Request TC_API_SEC_01 - Kiểm thử bảo mật tiêu cực (Negative Test)]:
+  'Cuối cùng, một khía cạnh tối quan trọng trong kiểm thử ngân hàng là An toàn bảo mật. Em mở request TC_API_SEC_01 - Protected API without Token. Ở request này, em cố tình truy cập vào endpoint thông tin tài khoản cá nhân /api/mobile/accounts/me nhưng không đính kèm bất kỳ Token xác thực nào.
+  Em bấm Send! Như Thầy/Cô thấy trên màn hình, máy chủ lập tức từ chối truy cập và trả về mã lỗi HTTP 401 Unauthorized chỉ trong 2 mili-giây! Bộ lọc JwtAuthenticationFilter của Spring Security đã ngay lập tức đánh chặn request nặc danh tại cổng vào, ngăn chặn hoàn toàn nguy cơ rò rỉ dữ liệu trái phép.'
+
+- (Phần bổ trợ chuyên nghiệp nếu Thầy/Cô yêu cầu xem CI/CD):
+  'Đặc biệt, để kiểm thử tự động trong quy trình tích hợp liên tục CI/CD, nhóm đã cấu hình Newman CLI. Khi gõ lệnh npx newman run ... trên Terminal, toàn bộ 10 ca kiểm thử này sẽ chạy ngầm và in bảng tổng kết tự động chỉ trong chưa đầy 1 giây!'"
 
 (Người thuyết trình nhấn Alt + Tab quay trở lại Slide trình chiếu).
-```
-
----
-
 ```
 ================================================================================
 SLIDE 11: KIỂM THỬ GIAO DIỆN NGƯỜI DÙNG (SELENIUM WEBDRIVER)
@@ -295,28 +307,62 @@ SLIDE 13: [CHUYỂN TIẾP DEMO 2] LIVE DEMO KIỂM THỬ GIAO DIỆN SELENIUM
 [Nội dung hiển thị trên Slide]:
 - Biểu tượng LIVE DEMO: AUTOMATED UI TESTING DEMONSTRATION
 - Các nội dung sẽ thực hiện trình diễn:
-  1. Chạy bộ kiểm thử tự động hóa 16 trang Selenium qua dòng lệnh Python.
+  1. Chạy bộ kiểm thử tự động hóa 16 trang Selenium qua dòng lệnh Python Terminal.
   2. Mở dự án `MiniBank_Admin_UI_Test.side` trên tiện ích Selenium IDE Runner.
-  3. Quan sát trình duyệt tự động điền thông tin, click chuyển trang và xác thực dữ liệu.
+  3. Trình diễn khả năng tự động đăng nhập, render dữ liệu và kiểm tra thẻ DOM.
 
 [Kịch bản lời thoại của người thuyết trình khi thao tác Live Demo - 2.5 phút]:
-(Người thuyết trình mở Terminal):
+(Người thuyết trình mở Terminal / PowerShell):
 
-"Kính thưa Thầy/Cô, bây giờ em sẽ thực thi bộ kiểm thử tự động hóa giao diện:
-- Bước 1: Trong Terminal, em gõ lệnh:
+"Kính thưa Thầy/Cô, bây giờ em xin phép thực thi trực tiếp bộ kiểm thử tự động hóa giao diện Selenium trên Terminal:
+
+- Bước 1 [Chạy kiểm thử dòng lệnh trên Terminal]:
+  'Trước khi chạy, hệ thống Frontend Admin Portal đang hoạt động tại cổng 3000 và Backend Spring Boot đang chạy tại cổng 8080.
+  Tại thư mục gốc của dự án, em gõ câu lệnh:
   python test_automation/selenium/test_admin_portal_all_pages.py -v
-  Hệ thống sẽ khởi tạo trình duyệt Chrome Headless, tự động đăng nhập với tài khoản Admin, và lần lượt duyệt qua kiểm tra DOM của cả 16 phân hệ: từ Login, Dashboard, Loan Approval, Saving Approval đến Quản lý khách hàng, eKYC, Audit Log. Các bài test lần lượt in ra trạng thái 'ok' và kết thúc với kết quả hoàn hảo: Ran 16 tests - OK!
-- Bước 2: Để Hội đồng có thể quan sát trực quan từng thao tác tương tác người dùng, em xin phép mở tiện ích Selenium IDE trên Chrome và nạp tệp kịch bản 'MiniBank_Admin_UI_Test.side'.
-  Em bấm nút Play (▶️) để chạy toàn bộ kịch bản Record & Playback: Thầy/Cô có thể thấy trình duyệt tự động mở trang /login, tự động gõ 'admin', gõ mật khẩu 'admin123', click Đăng nhập, kiểm tra hiển thị Dashboard, sau đó click sang trang Phê duyệt khoản vay và thực hiện đăng xuất an toàn. Mọi lệnh assertElementPresent và assertText đều trả về màu xanh Passed!"
 
-(Người thuyết trình chuyển lại Slide trình chiếu).
+  Ngay khi bấm Enter, trình điều khiển Chrome WebDriver tự động khởi chạy và thực thi tuần tự 16 ca kiểm thử giao diện:
+  + Từ TC_PAGE_01 kiểm tra form đăng nhập và bắt lỗi sai mật khẩu,
+  + Đến TC_PAGE_04 kiểm tra render 4 thẻ chỉ số tài chính trên Dashboard,
+  + Tiếp tục tự động kiểm tra giao diện Thẩm định hồ sơ vay, Duyệt sổ tiết kiệm, Danh sách khách hàng, eKYC,
+  + Cho tới Cấu hình sản phẩm, Quản lý cán bộ, Phân quyền RBAC và Nhật ký kiểm toán an ninh Audit Trail.
+  Mỗi ca kiểm thử hoàn tất đều in ra chữ 'ok'. Sau khoảng 72 giây, toàn bộ 16 ca kiểm thử đều hoàn thành với kết quả: Ran 16 tests - OK!'
+
+- Bước 2 [Trình diễn trực quan Record & Playback trên Selenium IDE]:
+  'Tiếp theo, để Hội đồng có thể quan sát trực tiếp từng thao tác click chuột và gõ phím của bot kiểm thử, em xin mở tệp kịch bản MiniBank_Admin_UI_Test.side trên tiện ích Selenium IDE.
+  Em bấm nút Run all tests: Trình duyệt tự động mở trang /login, tự động điền 'admin' và 'admin123', nhấn nút Đăng nhập, kiểm tra sự tồn tại của tiêu đề Dashboard, rồi tự động điều hướng sang trang Phê duyệt khoản vay và Đăng xuất an toàn.
+  Mọi assertion assertElementPresent và assertText đều trả về màu xanh lá hoàn hảo!'"
+
+(Người thuyết trình nhấn Alt + Tab quay trở lại Slide trình chiếu).
+```
+================================================================================
+SLIDE 14: PHÂN BỔ 57 CA KIỂM THỬ & KẾT QUẢ TỔNG HỢP (PHẦN IV)
+================================================================================
+[Nội dung hiển thị trên Slide]:
+- Bên trái: Biểu đồ tròn trực quan (Pie Chart) phân bổ 57 ca kiểm thử MiniBank (100% Passed).
+- Bên phải: Bảng thống kê phân loại ca kiểm thử:
+  + Unit Tests (Spring Boot): 20 ca (35.09%).
+  + Integration Tests (MockMvc): 11 ca (19.30%).
+  + Postman API Automation: 10 ca (17.54%).
+  + Selenium UI Full Pages: 16 ca (28.07%).
+  + TỔNG HỢP TOÀN BỘ HỆ THỐNG: 57 ca (100.0%).
+- Các chỉ số chất lượng đạt được:
+  ✔ Tỷ lệ thành công: 100% Passed (57/57 ca).
+  ✔ Độ bao phủ mã nguồn JaCoCo: 90.3% Line / 85.6% Branch.
+  ✔ Hiệu năng tải JMeter: 54.7 ms / Tỷ lệ lỗi 0.00%.
+
+[Kịch bản lời thoại của người thuyết trình - 60 giây]:
+"Kính thưa Thầy/Cô, bước sang Phần IV: Báo cáo phân tích tổng hợp, trên Slide là Biểu đồ tròn thống kê phân bổ toàn bộ 57 ca kiểm thử tự động của hệ thống MiniBank:
+- Trong đó, kiểm thử đơn vị Unit Tests chiếm tỷ trọng lớn nhất với 20 ca (35.09%), đóng vai trò kiểm soát chặt chẽ từng hàm nghiệp vụ tại tầng Service.
+- Tiếp theo là bộ kiểm thử giao diện tự động hóa Selenium với 16 ca (28.07%), bao quát toàn bộ 16 trang phân hệ của Cổng quản trị Admin Portal.
+- Kiểm thử tích hợp Spring MockMvc gồm 11 ca (19.30%) và Tự động hóa API Postman gồm 10 ca (17.54%).
+Toàn bộ 57 ca kiểm thử đều đạt tỷ lệ Passed tuyệt đối 100%, kết hợp với độ bao phủ mã nguồn JaCoCo đạt 90.3% và độ trễ phản hồi 54.7ms từ JMeter, khẳng định chất lượng toàn diện của hệ thống cả về chức năng, hiệu năng và độ ổn định."
 ```
 
 ---
 
-```
 ================================================================================
-SLIDE 14: NHẬT KÝ PHÁT HIỆN & XỬ LÝ LỖI (DEFECT LOG)
+SLIDE 15: NHẬT KÝ PHÁT HIỆN & XỬ LÝ LỖI (DEFECT LOG)
 ================================================================================
 [Nội dung hiển thị trên Slide]:
 - Bảng tổng hợp 6 lỗi quan trọng phát hiện trong quá trình kiểm thử (Bảng 4.1):
@@ -340,7 +386,7 @@ Nhóm đã phân tích nguyên nhân gốc rễ, sửa đổi mã nguồn và ch
 
 ```
 ================================================================================
-SLIDE 15: ĐÁNH GIÁ CHẤT LƯỢNG THEO CHUẨN ISO/IEC 25010
+SLIDE 16: ĐÁNH GIÁ CHẤT LƯỢNG THEO CHUẨN ISO/IEC 25010
 ================================================================================
 [Nội dung hiển thị trên Slide]:
 - Đánh giá hệ thống MiniBank dựa trên 7 đặc tính cốt lõi của ISO/IEC 25010:
@@ -361,7 +407,7 @@ Hệ thống MiniBank được đánh giá Xuất sắc trên cả 7 đặc tín
 
 ```
 ================================================================================
-SLIDE 16: TỔNG KẾT KẾT QUẢ & ĐỊNH HƯỚNG PHÁT TRIỂN
+SLIDE 17: TỔNG KẾT KẾT QUẢ & ĐỊNH HƯỚNG PHÁT TRIỂN
 ================================================================================
 [Nội dung hiển thị trên Slide]:
 - Tổng kết thành quả đạt được:
@@ -384,7 +430,7 @@ Trong giai đoạn tiếp theo, nhóm định hướng sẽ tích hợp bộ ki�
 
 ```
 ================================================================================
-SLIDE 17: LỜI CẢM ƠN & PHIÊN HỎI ĐÁP (Q&A)
+SLIDE 18: LỜI CẢM ƠN & PHIÊN HỎI ĐÁP (Q&A)
 ================================================================================
 [Nội dung hiển thị trên Slide]:
 - Dòng chữ lớn: "XIN CHÂN THÀNH CẢM ƠN THẦY CÔ VÀ CÁC BẠN ĐÃ LẮNG NGHE!"

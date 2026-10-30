@@ -21,15 +21,22 @@ class MiniBankAdminUiTest(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         chrome_options = ChromeOptions()
-        chrome_options.add_argument("--headless=new") # Run headless for CI/CD compatibility
+        # Mặc định mở cửa sổ Chrome trực quan (đặt HEADLESS=true nếu muốn chạy ngầm CI/CD)
+        if os.getenv("HEADLESS", "false").lower() in ("true", "1"):
+            chrome_options.add_argument("--headless=new")
         chrome_options.add_argument("--disable-gpu")
         chrome_options.add_argument("--no-sandbox")
         chrome_options.add_argument("--window-size=1920,1080")
+        chrome_options.add_argument("--start-maximized")
         chrome_options.add_argument("--disable-dev-shm-usage")
         
         try:
             cls.driver = webdriver.Chrome(options=chrome_options)
             cls.driver.implicitly_wait(5)
+            try:
+                cls.driver.maximize_window()
+            except Exception:
+                pass
             cls.browser_available = True
         except Exception as e:
             print(f"[WARN] Chrome WebDriver not available in current environment: {e}")

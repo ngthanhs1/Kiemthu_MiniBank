@@ -20,14 +20,21 @@ class MiniBankAdminFullUiTest(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         chrome_options = ChromeOptions()
-        chrome_options.add_argument("--headless=new")
+        # Chạy trực quan hiển thị cửa sổ Chrome trên màn hình (đặt HEADLESS=true nếu muốn chạy ngầm)
+        if os.getenv("HEADLESS", "false").lower() in ("true", "1"):
+            chrome_options.add_argument("--headless=new")
         chrome_options.add_argument("--disable-gpu")
         chrome_options.add_argument("--no-sandbox")
         chrome_options.add_argument("--window-size=1920,1080")
+        chrome_options.add_argument("--start-maximized")
         chrome_options.add_argument("--disable-dev-shm-usage")
         
         cls.driver = webdriver.Chrome(options=chrome_options)
         cls.driver.implicitly_wait(6)
+        try:
+            cls.driver.maximize_window()
+        except Exception:
+            pass
 
     @classmethod
     def tearDownClass(cls):
@@ -35,7 +42,14 @@ class MiniBankAdminFullUiTest(unittest.TestCase):
             cls.driver.quit()
 
     def login_as_admin(self):
-        """Helper to ensure logged in session"""
+        """Helper to ensure logged in session; avoids repeated login if session exists"""
+        try:
+            token = self.driver.execute_script('return window.localStorage.getItem("adminToken");')
+            if token and "/login" not in self.driver.current_url:
+                return
+        except Exception:
+            pass
+
         self.driver.get(f"{BASE_URL}/login")
         time.sleep(1)
         inputs = self.driver.find_elements(By.TAG_NAME, "input")

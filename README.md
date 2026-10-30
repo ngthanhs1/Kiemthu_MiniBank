@@ -1,9 +1,10 @@
-# 🏦 MiniBank - Hệ Thống Ngân Hàng Số & Hồ Sơ Kiểm Định Chất Lượng Toàn Diện
+﻿# 🏦 MiniBank - Hệ Thống Ngân Hàng Số & Hồ Sơ Kiểm Định Chất Lượng Toàn Diện
 
 > **ĐỀ TÀI:** KIỂM ĐỊNH VÀ ĐÁNH GIÁ CHẤT LƯỢNG HỆ THỐNG NGÂN HÀNG SỐ TRỰC TUYẾN MINIBANK  
-> **Cơ quan chủ quản:** TRƯỜNG ĐẠI HỌC PHENIKAA — KHOA CÔNG NGHỆ THÔNG TIN  
-> **Giảng viên hướng dẫn:** TS. Trịnh Thanh Bình  
+> **Giảng viên hướng dẫn:** TS. Trịnh Thanh Bình
+> **Thành viên:** Nguyễn Văn Thành - Hà Xuân Đại 
 > **Học phần:** Kiểm định và Đánh giá chất lượng phần mềm  
+> **Nhóm thực hiện:** Nhóm 6: Nguyễn Văn Thành (MSV: 23010191) & Hà Xuân Đại (MSV: 23010494)  
 > **Phiên bản:** 2.0.0 (Chuẩn hóa Java 17+, Next.js 16, 57 Ca kiểm thử tự động đạt 100% Pass Rate)
 
 ---
@@ -198,22 +199,3 @@ jmeter -n -t test_automation\jmeter\MiniBank_Performance_TestPlan.jmx -l test_au
 * **Mã xác thực OTP:** `123456` (Chế độ `SMS_DEV_MODE=true`)
 * **Số tài khoản thanh toán:** `1000001`
 * **Số dư khả dụng ban đầu:** `10.000.000 VNĐ`
-
----
-
-## 8. Danh Mục Hồ Sơ & Sản Phẩm Đề Tài Đã Bàn Giao
-
-1. 📄 **Báo Cáo Kiểm Định Chất Lượng Bản Microsoft Word Chính Thức (.docx):**
-   * [`BAO_CAO_KIEM_DINH_CHAT_LUONG_PHAN_MEM_MINIBANK.docx`](file:///d:/Code_Hoc/Kiemthu_MiniBank/BAO_CAO_KIEM_DINH_CHAT_LUONG_PHAN_MEM_MINIBANK.docx)
-   * Dung lượng: **2.02 MB**, trình bày chuẩn form Đại học Phenikaa (Bìa trang trọng, bảng biểu viền xanh Navy #1F497D, nhúng đầy đủ 21 ảnh minh chứng thực nghiệm độ phân giải cao).
-2. 📝 **Báo Cáo Kiểm Định Chất Lượng Bản Markdown (.md):**
-   * [`BAO_CAO_KIEM_DINH_CHAT_LUONG_PHAN_MEM_MINIBANK.md`](file:///d:/Code_Hoc/Kiemthu_MiniBank/BAO_CAO_KIEM_DINH_CHAT_LUONG_PHAN_MEM_MINIBANK.md)
-   * Đồng bộ 100% nội dung, sơ đồ kiến trúc Mermaid, công thức toán học KaTeX và bảng nhật ký lỗi.
-3. 📊 **Slide Thuyết Trình Bảo Vệ Đề Tài Bản PowerPoint (.pptx):**
-   * [`SLIDE_THUYET_TRINH_MINIBANK.pptx`](file:///d:/Code_Hoc/Kiemthu_MiniBank/SLIDE_THUYET_TRINH_MINIBANK.pptx)
-   * Tỷ lệ khung hình 16:9 widescreen, thiết kế chuẩn nhận diện Phenikaa, tích hợp 2 slide chuyển tiếp đặc biệt phục vụ **LIVE DEMO** trực tiếp.
-4. 🎤 **Giáo Trình Slide & Kịch Bản Lời Thoại Thuyết Trình Từng Giây:**
-   * [`docs/presentation/GIAO_TRINH_SLIDE_VA_KICH_BAN_THUYET_TRINH.md`](file:///d:/Code_Hoc/Kiemthu_MiniBank/docs/presentation/GIAO_TRINH_SLIDE_VA_KICH_BAN_THUYET_TRINH.md)
-   * Bao gồm chi tiết lời thoại người thuyết trình cho từng slide (tổng 15-20 phút), hướng dẫn chuyển cửa sổ live demo Postman và Selenium, cùng bộ câu hỏi phản biện thường gặp của Hội đồng chấm thi.
-5. 📖 **Sổ Tay Hướng Dẫn Cài Đặt, Vận Hành & Kiểm Thử Chi Tiết:**
-   * [`docs/step_docs/HUONG_DAN_CHAY_VA_KIEM_THU.md`](file:///d:/Code_Hoc/Kiemthu_MiniBank/docs/step_docs/HUONG_DAN_CHAY_VA_KIEM_THU.md)

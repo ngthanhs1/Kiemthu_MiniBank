@@ -1,8 +1,12 @@
 # -*- coding: utf-8 -*-
 """
 Generate a professional 16:9 widescreen PowerPoint presentation (.pptx)
-for the Phenikaa University Graduation / Project Defense:
-'Kiểm định và đánh giá chất lượng hệ thống ngân hàng số trực tuyến MiniBank'
+Updated with user requirements:
+- Phenikaa Logo in top-right corner of every slide.
+- Slide number in bottom-right corner of every slide (e.g. '01 / 18').
+- Removed 'TRƯỜNG ĐẠI HỌC PHENIKAA • KHOA CÔNG NGHỆ THÔNG TIN' header line.
+- Slide 1: Added 'Nhóm 6: Nguyễn Văn Thành - 23010191 và Hà Xuân Đại - 23010494'.
+- Section 4: Added dedicated slide with Pie Chart of 57 test cases and summary table.
 """
 
 import os
@@ -10,12 +14,15 @@ import shutil
 from pptx import Presentation
 from pptx.util import Inches, Pt
 from pptx.dml.color import RGBColor
-from pptx.enum.text import PP_ALIGN, MSO_ANCHOR
+from pptx.enum.text import PP_ALIGN
 from pptx.enum.shapes import MSO_SHAPE
+
+TOTAL_SLIDES = 18
+LOGO_PATH = r"d:\Code_Hoc\Kiemthu_MiniBank\docs\figures\phenikaa_logo.png"
+PIE_CHART_PATH = r"d:\Code_Hoc\Kiemthu_MiniBank\docs\figures\hinh_4_1_pie_chart.png"
 
 def create_deck():
     prs = Presentation()
-    # 16:9 widescreen
     prs.slide_width = Inches(13.333)
     prs.slide_height = Inches(7.5)
     blank_layout = prs.slide_layouts[6]
@@ -28,59 +35,64 @@ def create_deck():
     ORANGE = RGBColor(0xE6, 0x51, 0x00)    # #E65100
     WHITE = RGBColor(0xFF, 0xFF, 0xFF)
     DARK_GRAY = RGBColor(0x33, 0x33, 0x33)
-    LIGHT_GRAY = RGBColor(0x66, 0x66, 0x66)
+    LIGHT_GRAY = RGBColor(0x75, 0x75, 0x75)
     CARD_BG = RGBColor(0xF4, 0xF6, 0xF9)
     BORDER_COLOR = RGBColor(0xCF, 0xD8, 0xDC)
 
-    def add_header(slide, title, category="TRƯỜNG ĐẠI HỌC PHENIKAA • KHOA CÔNG NGHỆ THÔNG TIN"):
-        # Top banner
-        header_box = slide.shapes.add_textbox(Inches(0.8), Inches(0.4), Inches(11.7), Inches(1.1))
+    def add_slide_decorations(slide, slide_num, is_dark=False):
+        # 1. Logo in top-right corner
+        if os.path.exists(LOGO_PATH):
+            slide.shapes.add_picture(LOGO_PATH, Inches(11.3), Inches(0.25), width=Inches(1.5))
+
+        # 2. Slide number in bottom-right corner
+        p_box = slide.shapes.add_textbox(Inches(11.0), Inches(7.05), Inches(1.8), Inches(0.35))
+        tf = p_box.text_frame
+        tf.margin_left = tf.margin_top = tf.margin_right = tf.margin_bottom = 0
+        p = tf.paragraphs[0]
+        p.text = f"{slide_num:02d} / {TOTAL_SLIDES:02d}"
+        p.alignment = PP_ALIGN.RIGHT
+        p.font.size = Pt(11)
+        p.font.bold = True
+        p.font.color.rgb = RGBColor(0xB0, 0xBE, 0xC5) if is_dark else RGBColor(0x78, 0x90, 0x9C)
+
+    def add_header(slide, title, slide_num):
+        # Top banner (Removed TRƯỜNG ĐẠI HỌC... text line as requested)
+        header_box = slide.shapes.add_textbox(Inches(0.8), Inches(0.4), Inches(10.0), Inches(0.85))
         tf = header_box.text_frame
         tf.word_wrap = True
         tf.margin_left = tf.margin_top = tf.margin_right = tf.margin_bottom = 0
         
-        p0 = tf.paragraphs[0]
-        p0.text = category.upper()
-        p0.font.size = Pt(11)
-        p0.font.bold = True
-        p0.font.color.rgb = CYAN
-        
-        p1 = tf.add_paragraph()
-        p1.text = title
-        p1.font.size = Pt(24)
-        p1.font.bold = True
-        p1.font.color.rgb = NAVY
-        p1.space_before = Pt(4)
+        p = tf.paragraphs[0]
+        p.text = title
+        p.font.size = Pt(23)
+        p.font.bold = True
+        p.font.color.rgb = NAVY
 
         # Thin accent line under header
-        line = slide.shapes.add_shape(MSO_SHAPE.RECTANGLE, Inches(0.8), Inches(1.5), Inches(11.733), Inches(0.04))
+        line = slide.shapes.add_shape(MSO_SHAPE.RECTANGLE, Inches(0.8), Inches(1.35), Inches(11.733), Inches(0.035))
         line.fill.solid()
         line.fill.fore_color.rgb = CYAN
         line.line.color.rgb = CYAN
 
+        # Add logo and page number
+        add_slide_decorations(slide, slide_num, is_dark=False)
+
     # =========================================================================
-    # SLIDE 1: Title Slide
+    # SLIDE 1: Title Slide (Updated with Group 6 & Members, Removed University line)
     # =========================================================================
     s1 = prs.slides.add_slide(blank_layout)
-    # Background rectangle
-    bg = s1.shapes.add_shape(MSO_SHAPE.RECTANGLE, 0, 0, Inches(13.333), Inches(7.5))
-    bg.fill.solid()
-    bg.fill.fore_color.rgb = NAVY
-    bg.line.fill.background()
+    bg1 = s1.shapes.add_shape(MSO_SHAPE.RECTANGLE, 0, 0, Inches(13.333), Inches(7.5))
+    bg1.fill.solid()
+    bg1.fill.fore_color.rgb = NAVY
+    bg1.line.fill.background()
 
-    # Title box
-    tbox = s1.shapes.add_textbox(Inches(1.2), Inches(1.5), Inches(11.0), Inches(4.5))
-    tf1 = tbox.text_frame
+    add_slide_decorations(s1, 1, is_dark=True)
+
+    tbox1 = s1.shapes.add_textbox(Inches(1.2), Inches(1.5), Inches(11.0), Inches(4.8))
+    tf1 = tbox1.text_frame
     tf1.word_wrap = True
 
     p = tf1.paragraphs[0]
-    p.text = "TRƯỜNG ĐẠI HỌC PHENIKAA  •  KHOA CÔNG NGHỆ THÔNG TIN"
-    p.font.size = Pt(14)
-    p.font.bold = True
-    p.font.color.rgb = RGBColor(0x80, 0xD8, 0xFF)
-    p.space_after = Pt(16)
-
-    p = tf1.add_paragraph()
     p.text = "BÁO CÁO KIỂM ĐỊNH & ĐÁNH GIÁ CHẤT LƯỢNG\nHỆ THỐNG NGÂN HÀNG SỐ MINIBANK"
     p.font.size = Pt(32)
     p.font.bold = True
@@ -88,14 +100,21 @@ def create_deck():
     p.space_after = Pt(24)
 
     p = tf1.add_paragraph()
+    p.text = "Nhóm 6: Nguyễn Văn Thành (23010191)  &  Hà Xuân Đại (23010494)"
+    p.font.size = Pt(18)
+    p.font.bold = True
+    p.font.color.rgb = RGBColor(0x80, 0xD8, 0xFF)
+    p.space_after = Pt(12)
+
+    p = tf1.add_paragraph()
     p.text = "Giảng viên hướng dẫn: TS. Trịnh Thanh Bình"
     p.font.size = Pt(16)
     p.font.bold = True
     p.font.color.rgb = RGBColor(0xFF, 0xD5, 0x4F)
-    p.space_after = Pt(8)
+    p.space_after = Pt(10)
 
     p = tf1.add_paragraph()
-    p.text = "Đơn vị đào tạo: Học kỳ I - Năm học 2025 - 2026  •  Hà Nội, 2026"
+    p.text = "Học kỳ I - Năm học 2025 - 2026  •  Hà Nội, Năm 2026"
     p.font.size = Pt(13)
     p.font.color.rgb = RGBColor(0xCF, 0xD8, 0xDC)
 
@@ -103,9 +122,8 @@ def create_deck():
     # SLIDE 2: Problem Statement & Objectives
     # =========================================================================
     s2 = prs.slides.add_slide(blank_layout)
-    add_header(s2, "1. Đặt Vấn Đề & Mục Tiêu Kiểm Định Chất Lượng")
+    add_header(s2, "1. Đặt Vấn Đề & Mục Tiêu Kiểm Định Chất Lượng", 2)
     
-    # 3 Cards Layout
     cards_data = [
         ("Bối Cảnh & Thách Thức", [
             "Hệ thống Fintech / Ngân hàng số yêu cầu tính chính xác tuyệt đối 100%.",
@@ -129,13 +147,13 @@ def create_deck():
 
     for i, (title, points, color) in enumerate(cards_data):
         left = Inches(0.8 + i * 4.0)
-        c = s2.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, left, Inches(1.9), Inches(3.7), Inches(5.0))
+        c = s2.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, left, Inches(1.8), Inches(3.7), Inches(5.0))
         c.fill.solid()
         c.fill.fore_color.rgb = CARD_BG
         c.line.color.rgb = color
         c.line.width = Pt(2)
 
-        tb = s2.shapes.add_textbox(left + Inches(0.2), Inches(2.1), Inches(3.3), Inches(4.5))
+        tb = s2.shapes.add_textbox(left + Inches(0.2), Inches(2.0), Inches(3.3), Inches(4.5))
         tf = tb.text_frame
         tf.word_wrap = True
         
@@ -149,7 +167,7 @@ def create_deck():
         for pt in points:
             p = tf.add_paragraph()
             p.text = "• " + pt
-            p.font.size = Pt(12.5)
+            p.font.size = Pt(12)
             p.font.color.rgb = DARK_GRAY
             p.space_after = Pt(10)
 
@@ -157,17 +175,17 @@ def create_deck():
     # SLIDE 3: System Architecture
     # =========================================================================
     s3 = prs.slides.add_slide(blank_layout)
-    add_header(s3, "2. Kiến Trúc Phân Tầng Hệ Thống MiniBank")
+    add_header(s3, "2. Kiến Trúc Phân Tầng Hệ Thống MiniBank", 3)
 
     arch_layers = [
         ("Tầng Giao Diện (Presentation Layer) - Next.js 16 / React 19", 
-         "Admin Portal hiện đại, Tailwind CSS 4, quản lý phiên qua JWT trong localStorage, kết nối REST API.", Inches(1.8), CYAN),
+         "Admin Portal hiện đại, Tailwind CSS 4, quản lý phiên qua JWT trong localStorage, kết nối REST API.", Inches(1.75), CYAN),
         ("Tầng Bảo Mật & Điểm Cuối (Security & Controller Layer)", 
-         "Spring Security 6, JWT Filter xác thực Stateless, phân quyền RBAC (ADMIN, USER, COMPLIANCE).", Inches(3.1), NAVY),
+         "Spring Security 6, JWT Filter xác thực Stateless, phân quyền RBAC (ADMIN, USER, COMPLIANCE).", Inches(3.05), NAVY),
         ("Tầng Nghiệp Vụ Cốt Lõi (Business Logic Service Layer)", 
-         "Dịch vụ tài chính: TransferService, LoanService, SavingsService, AuthService, AuditLogService.", Inches(4.4), GREEN),
+         "Dịch vụ tài chính: TransferService, LoanService, SavingsService, AuthService, AuditLogService.", Inches(4.35), GREEN),
         ("Tầng Dữ Liệu & Lưu Trữ (Data Access & Database Layer)", 
-         "Spring Data JPA, Khóa bi quan (Pessimistic Locking). Đa môi trường: PostgreSQL 17 (Prod) & H2 (Test).", Inches(5.7), ORANGE),
+         "Spring Data JPA, Khóa bi quan (Pessimistic Locking). Đa môi trường: PostgreSQL 17 (Prod) & H2 (Test).", Inches(5.65), ORANGE),
     ]
 
     for title, desc, top, col in arch_layers:
@@ -196,7 +214,7 @@ def create_deck():
     # SLIDE 4: Testing Matrix & Methodology
     # =========================================================================
     s4 = prs.slides.add_slide(blank_layout)
-    add_header(s4, "3. Ma Trận Phương Pháp & Công Cụ Kiểm Định Chất Lượng")
+    add_header(s4, "3. Ma Trận Phương Pháp & Công Cụ Kiểm Định Chất Lượng", 4)
 
     matrix_items = [
         ("Kiểm Thử Hộp Trắng", "JUnit 5 & Mockito", "Đo độ phức tạp Cyclomatic V(G), kiểm thử rẽ nhánh Branch Testing"),
@@ -213,7 +231,7 @@ def create_deck():
         row = idx // 2
         col = idx % 2
         l = Inches(0.8 + col * 5.95)
-        t = Inches(1.9 + row * 1.25)
+        t = Inches(1.8 + row * 1.25)
         
         box = s4.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, l, t, Inches(5.75), Inches(1.1))
         box.fill.solid()
@@ -240,15 +258,14 @@ def create_deck():
     # SLIDE 5: White-box Testing & JaCoCo Coverage
     # =========================================================================
     s5 = prs.slides.add_slide(blank_layout)
-    add_header(s5, "4. Kiểm Thử Hộp Trắng & Độ Bao Phủ Mã Nguồn (JaCoCo)")
+    add_header(s5, "4. Kiểm Thử Hộp Trắng & Độ Bao Phủ Mã Nguồn (JaCoCo)", 5)
 
-    # 2 Columns
-    col1 = s5.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(0.8), Inches(1.9), Inches(5.7), Inches(5.0))
+    col1 = s5.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(0.8), Inches(1.8), Inches(5.7), Inches(5.0))
     col1.fill.solid()
     col1.fill.fore_color.rgb = CARD_BG
     col1.line.color.rgb = NAVY
 
-    tb1 = s5.shapes.add_textbox(Inches(1.0), Inches(2.1), Inches(5.3), Inches(4.5))
+    tb1 = s5.shapes.add_textbox(Inches(1.0), Inches(2.0), Inches(5.3), Inches(4.5))
     tf1 = tb1.text_frame
     tf1.word_wrap = True
     p = tf1.paragraphs[0]
@@ -274,13 +291,12 @@ def create_deck():
         p.font.color.rgb = DARK_GRAY
         p.space_after = Pt(6)
 
-    # Right column: JaCoCo stats
-    col2 = s5.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(6.8), Inches(1.9), Inches(5.7), Inches(5.0))
+    col2 = s5.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(6.8), Inches(1.8), Inches(5.7), Inches(5.0))
     col2.fill.solid()
     col2.fill.fore_color.rgb = CARD_BG
     col2.line.color.rgb = GREEN
 
-    tb2 = s5.shapes.add_textbox(Inches(7.0), Inches(2.1), Inches(5.3), Inches(4.5))
+    tb2 = s5.shapes.add_textbox(Inches(7.0), Inches(2.0), Inches(5.3), Inches(4.5))
     tf2 = tb2.text_frame
     tf2.word_wrap = True
     p = tf2.paragraphs[0]
@@ -313,7 +329,7 @@ def create_deck():
     # SLIDE 6: Black-box Testing (EP & BVA)
     # =========================================================================
     s6 = prs.slides.add_slide(blank_layout)
-    add_header(s6, "5. Kiểm Thử Hộp Đen Nghiệp Vụ Cốt Lõi (EP & BVA)")
+    add_header(s6, "5. Kiểm Thử Hộp Đen Nghiệp Vụ Cốt Lõi (EP & BVA)", 6)
 
     bb_items = [
         ("Phân Vùng Tương Đương (EP)", [
@@ -331,13 +347,13 @@ def create_deck():
     ]
 
     for title, pts, l in bb_items:
-        c = s6.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, l, Inches(1.9), Inches(5.7), Inches(5.0))
+        c = s6.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, l, Inches(1.8), Inches(5.7), Inches(5.0))
         c.fill.solid()
         c.fill.fore_color.rgb = CARD_BG
         c.line.color.rgb = NAVY
         c.line.width = Pt(2)
 
-        tb = s6.shapes.add_textbox(l + Inches(0.2), Inches(2.1), Inches(5.3), Inches(4.5))
+        tb = s6.shapes.add_textbox(l + Inches(0.2), Inches(2.0), Inches(5.3), Inches(4.5))
         tf = tb.text_frame
         tf.word_wrap = True
         p = tf.paragraphs[0]
@@ -358,16 +374,15 @@ def create_deck():
     # SLIDE 7: Concurrency & Double-Spending Prevention
     # =========================================================================
     s7 = prs.slides.add_slide(blank_layout)
-    add_header(s7, "6. Kiểm Thử Tranh Chấp Đồng Thời (Pessimistic Locking)")
+    add_header(s7, "6. Kiểm Thử Tranh Chấp Đồng Thời (Pessimistic Locking)", 7)
 
-    # Problem vs Solution layout
-    p_box = s7.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(0.8), Inches(1.9), Inches(5.7), Inches(5.0))
+    p_box = s7.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(0.8), Inches(1.8), Inches(5.7), Inches(5.0))
     p_box.fill.solid()
     p_box.fill.fore_color.rgb = CARD_BG
     p_box.line.color.rgb = ORANGE
     p_box.line.width = Pt(2)
 
-    tb = s7.shapes.add_textbox(Inches(1.0), Inches(2.1), Inches(5.3), Inches(4.5))
+    tb = s7.shapes.add_textbox(Inches(1.0), Inches(2.0), Inches(5.3), Inches(4.5))
     tf = tb.text_frame
     tf.word_wrap = True
     p = tf.paragraphs[0]
@@ -390,14 +405,13 @@ def create_deck():
         p.font.color.rgb = DARK_GRAY
         p.space_after = Pt(10)
 
-    # Solution
-    s_box = s7.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(6.8), Inches(1.9), Inches(5.7), Inches(5.0))
+    s_box = s7.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(6.8), Inches(1.8), Inches(5.7), Inches(5.0))
     s_box.fill.solid()
     s_box.fill.fore_color.rgb = CARD_BG
     s_box.line.color.rgb = GREEN
     s_box.line.width = Pt(2)
 
-    tb2 = s7.shapes.add_textbox(Inches(7.0), Inches(2.1), Inches(5.3), Inches(4.5))
+    tb2 = s7.shapes.add_textbox(Inches(7.0), Inches(2.0), Inches(5.3), Inches(4.5))
     tf2 = tb2.text_frame
     tf2.word_wrap = True
     p = tf2.paragraphs[0]
@@ -427,7 +441,7 @@ def create_deck():
     # SLIDE 8: Performance Testing (JMeter)
     # =========================================================================
     s8 = prs.slides.add_slide(blank_layout)
-    add_header(s8, "7. Kiểm Thử Tải & Năng Lực Hiệu Năng (Apache JMeter)")
+    add_header(s8, "7. Kiểm Thử Tải & Năng Lực Hiệu Năng (Apache JMeter)", 8)
 
     j_stats = [
         ("POST /api/v1/auth/login", "5.000", "65 ms", "0.00%", "238.4 req/s"),
@@ -436,14 +450,13 @@ def create_deck():
         ("GET /api/v1/transactions/history", "5.000", "38 ms", "0.00%", "325.6 req/s"),
     ]
 
-    # Summary Card Top
-    top_c = s8.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(0.8), Inches(1.9), Inches(11.733), Inches(1.2))
+    top_c = s8.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(0.8), Inches(1.8), Inches(11.733), Inches(1.2))
     top_c.fill.solid()
     top_c.fill.fore_color.rgb = CARD_BG
     top_c.line.color.rgb = CYAN
     top_c.line.width = Pt(2)
 
-    tb = s8.shapes.add_textbox(Inches(1.0), Inches(2.05), Inches(11.3), Inches(0.9))
+    tb = s8.shapes.add_textbox(Inches(1.0), Inches(1.95), Inches(11.3), Inches(0.9))
     tf = tb.text_frame
     tf.word_wrap = True
     p = tf.paragraphs[0]
@@ -459,9 +472,8 @@ def create_deck():
     p2.font.color.rgb = GREEN
     p2.space_before = Pt(4)
 
-    # 4 API cards
     for idx, (api, samp, lat, err, thr) in enumerate(j_stats):
-        top_pos = Inches(3.3 + idx * 0.95)
+        top_pos = Inches(3.2 + idx * 0.95)
         b = s8.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(0.8), top_pos, Inches(11.733), Inches(0.85))
         b.fill.solid()
         b.fill.fore_color.rgb = CARD_BG
@@ -480,10 +492,9 @@ def create_deck():
     # SLIDE 9: Postman & Newman API Automation
     # =========================================================================
     s9 = prs.slides.add_slide(blank_layout)
-    add_header(s9, "8. Tự Động Hóa Kiểm Thử API (Postman / Newman)")
+    add_header(s9, "8. Tự Động Hóa Kiểm Thử API (Postman / Newman)", 9)
 
-    # Left: Explanation & Results
-    tb = s9.shapes.add_textbox(Inches(0.8), Inches(1.9), Inches(5.8), Inches(5.0))
+    tb = s9.shapes.add_textbox(Inches(0.8), Inches(1.8), Inches(5.8), Inches(5.0))
     tf = tb.text_frame
     tf.word_wrap = True
     p = tf.paragraphs[0]
@@ -511,10 +522,9 @@ def create_deck():
         p.font.color.rgb = DARK_GRAY
         p.space_after = Pt(4)
 
-    # Right: Embedded Runner Image
     img_runner = r"d:\Code_Hoc\Kiemthu_MiniBank\docs\figures\hinh_3_4b_postman_runner.png"
     if os.path.exists(img_runner):
-        s9.shapes.add_picture(img_runner, Inches(6.8), Inches(1.9), width=Inches(5.7))
+        s9.shapes.add_picture(img_runner, Inches(6.8), Inches(1.8), width=Inches(5.7))
 
     # =========================================================================
     # SLIDE 10: DEMO TRANSITION 1: POSTMAN & NEWMAN
@@ -524,6 +534,8 @@ def create_deck():
     bg10.fill.solid()
     bg10.fill.fore_color.rgb = ORANGE
     bg10.line.fill.background()
+
+    add_slide_decorations(s10, 10, is_dark=True)
 
     tb10 = s10.shapes.add_textbox(Inches(1.5), Inches(1.8), Inches(10.333), Inches(4.0))
     tf10 = tb10.text_frame
@@ -544,7 +556,14 @@ def create_deck():
     p.space_after = Pt(20)
 
     p = tf10.add_paragraph()
-    p.text = "Nội dung thực hiện:\n1. Chạy tự động Collection Runner trên Postman Desktop (17/17 Passed).\n2. Gửi request TC_API_ADM_01 kiểm tra cấp phát Token JWT (200 OK).\n3. Gửi request TC_API_SEC_01 kiểm tra chặn truy cập trái phép (401 Unauthorized).\n4. Chạy lệnh dòng lệnh tự động siêu tốc với Newman CLI trên Terminal."
+    p.text = (
+        "Nội dung thực hiện:\n"
+        "1. Chạy tự động Collection Runner trên Postman Desktop (10 APIs, 17/17 Assertions Passed 100%, 38ms).\n"
+        "2. Gửi request TC_API_ADM_01: Admin Login kiểm tra xác thực & cấp JWT Bearer Token (200 OK).\n"
+        "3. Gửi request TC_API_ADM_02: Get Dashboard Stats truy xuất dữ liệu KPI tài chính JSON (200 OK).\n"
+        "4. Gửi request TC_API_SEC_01: Protected API without Token chặn truy cập trái phép (401 Unauthorized).\n"
+        "(Bổ trợ: Chạy tự động hóa CI/CD siêu tốc bằng công cụ Newman CLI trên Terminal)."
+    )
     p.font.size = Pt(14)
     p.font.color.rgb = WHITE
 
@@ -552,7 +571,7 @@ def create_deck():
     # SLIDE 11: Selenium WebDriver UI Automation
     # =========================================================================
     s11 = prs.slides.add_slide(blank_layout)
-    add_header(s11, "9. Kiểm Thử Giao Diện Người Dùng (Selenium WebDriver)")
+    add_header(s11, "9. Kiểm Thử Giao Diện Người Dùng (Selenium WebDriver)", 11)
 
     ui_col1 = [
         ("TC_PAGE_01: Đăng nhập Quản trị", "/login", "Kiểm tra form, input, submit button (2.1s)"),
@@ -576,8 +595,8 @@ def create_deck():
     ]
 
     for idx, (t, r, d) in enumerate(ui_col1):
-        top_pos = Inches(1.8 + idx * 0.65)
-        tb = s11.shapes.add_textbox(Inches(0.8), top_pos, Inches(5.8), Inches(0.6))
+        top_pos = Inches(1.7 + idx * 0.62)
+        tb = s11.shapes.add_textbox(Inches(0.8), top_pos, Inches(5.8), Inches(0.58))
         tf = tb.text_frame
         tf.word_wrap = True
         p = tf.paragraphs[0]
@@ -586,8 +605,8 @@ def create_deck():
         p.font.color.rgb = DARK_BLUE
 
     for idx, (t, r, d) in enumerate(ui_col2):
-        top_pos = Inches(1.8 + idx * 0.65)
-        tb = s11.shapes.add_textbox(Inches(6.8), top_pos, Inches(5.8), Inches(0.6))
+        top_pos = Inches(1.7 + idx * 0.62)
+        tb = s11.shapes.add_textbox(Inches(6.8), top_pos, Inches(5.8), Inches(0.58))
         tf = tb.text_frame
         tf.word_wrap = True
         p = tf.paragraphs[0]
@@ -595,15 +614,14 @@ def create_deck():
         p.font.size = Pt(10.5)
         p.font.color.rgb = DARK_BLUE
 
-    # Footer banner on slide 11
-    foot = s11.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(0.8), Inches(6.8), Inches(11.733), Inches(0.5))
+    foot = s11.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(0.8), Inches(6.75), Inches(11.733), Inches(0.45))
     foot.fill.solid()
     foot.fill.fore_color.rgb = GREEN
     foot.line.fill.background()
-    tb_f = s11.shapes.add_textbox(Inches(1.0), Inches(6.85), Inches(11.3), Inches(0.4))
+    tb_f = s11.shapes.add_textbox(Inches(1.0), Inches(6.8), Inches(11.3), Inches(0.35))
     p = tb_f.text_frame.paragraphs[0]
     p.text = "KẾT QUẢ THỰC THI TỰ ĐỘNG: 16/16 TRANG PASSED TRONG 72.95 GIÂY (PASS RATE 100%)"
-    p.font.size = Pt(12)
+    p.font.size = Pt(11.5)
     p.font.bold = True
     p.font.color.rgb = WHITE
 
@@ -611,21 +629,21 @@ def create_deck():
     # SLIDE 12: Visual UI Dashboards & Modules
     # =========================================================================
     s12 = prs.slides.add_slide(blank_layout)
-    add_header(s12, "10. Giao Diện Trực Quan Các Phân Hệ Cốt Lõi (Admin Portal)")
+    add_header(s12, "10. Giao Diện Trực Quan Các Phân Hệ Cốt Lõi (Admin Portal)", 12)
 
     img_dash = r"d:\Code_Hoc\Kiemthu_MiniBank\docs\figures\hinh_3_9_dashboard.png"
     img_loan = r"d:\Code_Hoc\Kiemthu_MiniBank\docs\figures\hinh_3_10_loan_approval.png"
     if os.path.exists(img_dash) and os.path.exists(img_loan):
-        s12.shapes.add_picture(img_dash, Inches(0.8), Inches(1.9), width=Inches(5.7))
-        s12.shapes.add_picture(img_loan, Inches(6.8), Inches(1.9), width=Inches(5.7))
+        s12.shapes.add_picture(img_dash, Inches(0.8), Inches(1.8), width=Inches(5.7))
+        s12.shapes.add_picture(img_loan, Inches(6.8), Inches(1.8), width=Inches(5.7))
 
-    cap1 = s12.shapes.add_textbox(Inches(0.8), Inches(5.3), Inches(5.7), Inches(0.5))
+    cap1 = s12.shapes.add_textbox(Inches(0.8), Inches(5.2), Inches(5.7), Inches(0.5))
     cap1.text_frame.paragraphs[0].text = "Hình 3.9: Bảng điều khiển quản trị trung tâm (Dashboard /)"
     cap1.text_frame.paragraphs[0].font.size = Pt(11)
     cap1.text_frame.paragraphs[0].font.bold = True
     cap1.text_frame.paragraphs[0].font.color.rgb = NAVY
 
-    cap2 = s12.shapes.add_textbox(Inches(6.8), Inches(5.3), Inches(5.7), Inches(0.5))
+    cap2 = s12.shapes.add_textbox(Inches(6.8), Inches(5.2), Inches(5.7), Inches(0.5))
     cap2.text_frame.paragraphs[0].text = "Hình 3.10: Phê duyệt hồ sơ vay vốn (/requests/loan-approval)"
     cap2.text_frame.paragraphs[0].font.size = Pt(11)
     cap2.text_frame.paragraphs[0].font.bold = True
@@ -639,6 +657,8 @@ def create_deck():
     bg13.fill.solid()
     bg13.fill.fore_color.rgb = CYAN
     bg13.line.fill.background()
+
+    add_slide_decorations(s13, 13, is_dark=True)
 
     tb13 = s13.shapes.add_textbox(Inches(1.5), Inches(1.8), Inches(10.333), Inches(4.0))
     tf13 = tb13.text_frame
@@ -664,10 +684,80 @@ def create_deck():
     p.font.color.rgb = WHITE
 
     # =========================================================================
-    # SLIDE 14: Defect Log & Resolution
+    # SLIDE 14: [NEW - SECTION 4 PIE CHART] Phân Bổ 57 Ca Kiểm Thử MiniBank
     # =========================================================================
     s14 = prs.slides.add_slide(blank_layout)
-    add_header(s14, "11. Nhật Ký Phát Hiện & Xử Lý Lỗi Phần Mềm (Defect Log)")
+    add_header(s14, "11. Phân Bổ 57 Ca Kiểm Thử & Kết Quả Tổng Hợp (Phần IV)", 14)
+
+    # Left: User's Pie Chart Image
+    if os.path.exists(PIE_CHART_PATH):
+        s14.shapes.add_picture(PIE_CHART_PATH, Inches(0.8), Inches(1.65), width=Inches(5.7))
+
+    # Right: Summary Breakdown Table & Metric Cards
+    c_right = s14.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(6.8), Inches(1.65), Inches(5.7), Inches(5.15))
+    c_right.fill.solid()
+    c_right.fill.fore_color.rgb = CARD_BG
+    c_right.line.color.rgb = NAVY
+    c_right.line.width = Pt(2)
+
+    tb_r = s14.shapes.add_textbox(Inches(7.0), Inches(1.8), Inches(5.3), Inches(4.8))
+    tf_r = tb_r.text_frame
+    tf_r.word_wrap = True
+
+    p = tf_r.paragraphs[0]
+    p.text = "Bảng Thống Kê Phân Bổ Ca Kiểm Thử"
+    p.font.size = Pt(16)
+    p.font.bold = True
+    p.font.color.rgb = NAVY
+    p.space_after = Pt(8)
+
+    rows_data = [
+        ("Unit Tests (Spring Boot)", "20 ca", "35.09%", RGBColor(0x88, 0x33, 0x44)),
+        ("Integration Tests (MockMvc)", "11 ca", "19.30%", RGBColor(0x1F, 0x49, 0x7D)),
+        ("Postman API Automation", "10 ca", "17.54%", RGBColor(0x2E, 0x7D, 0x32)),
+        ("Selenium UI Full Pages", "16 ca", "28.07%", RGBColor(0xD3, 0x54, 0x00)),
+        ("TỔNG HỢP TOÀN HỆ THỐNG", "57 ca", "100.0%", GREEN),
+    ]
+
+    for label, count, pct, col in rows_data:
+        p = tf_r.add_paragraph()
+        p.text = f"• {label}: {count} ({pct})"
+        p.font.size = Pt(12)
+        p.font.bold = (label.startswith("TỔNG"))
+        p.font.color.rgb = col
+        p.space_after = Pt(5)
+
+    p_div = tf_r.add_paragraph()
+    p_div.text = "────────────────────────────────────────"
+    p_div.font.size = Pt(9)
+    p_div.font.color.rgb = BORDER_COLOR
+    p_div.space_before = Pt(4)
+    p_div.space_after = Pt(4)
+
+    p_kpi = tf_r.add_paragraph()
+    p_kpi.text = "CHỈ SỐ CHẤT LƯỢNG ĐẠT ĐƯỢC:"
+    p_kpi.font.size = Pt(13)
+    p_kpi.font.bold = True
+    p_kpi.font.color.rgb = NAVY
+
+    kpi_lines = [
+        "✔ Tỷ lệ thành công: 100% Passed (57/57 ca vượt qua)",
+        "✔ Độ bao phủ mã nguồn JaCoCo: 90.3% Line / 85.6% Branch",
+        "✔ Hiệu năng chịu tải JMeter: 54.7 ms / Tỷ lệ lỗi: 0.00%",
+        "✔ Cơ chế bảo mật: Khóa bi quan chống Double-Spending 100%",
+    ]
+    for kl in kpi_lines:
+        p = tf_r.add_paragraph()
+        p.text = kl
+        p.font.size = Pt(11)
+        p.font.color.rgb = DARK_GRAY
+        p.space_after = Pt(3)
+
+    # =========================================================================
+    # SLIDE 15: Defect Log & Resolution
+    # =========================================================================
+    s15 = prs.slides.add_slide(blank_layout)
+    add_header(s15, "12. Nhật Ký Phát Hiện & Xử Lý Lỗi Phần Mềm (Defect Log)", 15)
 
     bugs = [
         ("BUG-01", "Chuyển tiền", "Cho phép chuyển số tiền bằng 0", "CRITICAL", "Cập nhật điều kiện if (amount <= 0)"),
@@ -680,14 +770,14 @@ def create_deck():
 
     for idx, (b_id, mod, desc, sev, fix) in enumerate(bugs):
         t_pos = Inches(1.8 + idx * 0.85)
-        box = s14.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(0.8), t_pos, Inches(11.733), Inches(0.75))
+        box = s15.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(0.8), t_pos, Inches(11.733), Inches(0.75))
         box.fill.solid()
         box.fill.fore_color.rgb = CARD_BG
         col = ORANGE if sev in ["CRITICAL", "BLOCKER"] else CYAN
         box.line.color.rgb = col
         box.line.width = Pt(1.5)
 
-        tb = s14.shapes.add_textbox(Inches(1.0), t_pos + Inches(0.08), Inches(11.3), Inches(0.6))
+        tb = s15.shapes.add_textbox(Inches(1.0), t_pos + Inches(0.08), Inches(11.3), Inches(0.6))
         tf = tb.text_frame
         tf.word_wrap = True
         p = tf.paragraphs[0]
@@ -697,10 +787,10 @@ def create_deck():
         p.font.color.rgb = DARK_BLUE
 
     # =========================================================================
-    # SLIDE 15: ISO/IEC 25010 Quality Evaluation
+    # SLIDE 16: ISO/IEC 25010 Quality Evaluation
     # =========================================================================
-    s15 = prs.slides.add_slide(blank_layout)
-    add_header(s15, "12. Đánh Giá Chất Lượng Theo Chuẩn ISO/IEC 25010")
+    s16 = prs.slides.add_slide(blank_layout)
+    add_header(s16, "13. Đánh Giá Chất Lượng Theo Chuẩn ISO/IEC 25010", 16)
 
     iso_items = [
         ("1. Tính Phù Hợp Chức Năng", "5.0 / 5.0", "57/57 ca test tự động thành công (Pass Rate 100%)"),
@@ -714,13 +804,13 @@ def create_deck():
 
     for idx, (name, score, desc) in enumerate(iso_items):
         t_pos = Inches(1.8 + idx * 0.72)
-        box = s15.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(0.8), t_pos, Inches(11.733), Inches(0.65))
+        box = s16.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(0.8), t_pos, Inches(11.733), Inches(0.65))
         box.fill.solid()
         box.fill.fore_color.rgb = CARD_BG
         box.line.color.rgb = GREEN
         box.line.width = Pt(1.5)
 
-        tb = s15.shapes.add_textbox(Inches(1.0), t_pos + Inches(0.06), Inches(11.3), Inches(0.5))
+        tb = s16.shapes.add_textbox(Inches(1.0), t_pos + Inches(0.06), Inches(11.3), Inches(0.5))
         tf = tb.text_frame
         tf.word_wrap = True
         p = tf.paragraphs[0]
@@ -730,18 +820,18 @@ def create_deck():
         p.font.color.rgb = DARK_BLUE
 
     # =========================================================================
-    # SLIDE 16: Summary & Future Work
+    # SLIDE 17: Summary & Future Work
     # =========================================================================
-    s16 = prs.slides.add_slide(blank_layout)
-    add_header(s16, "13. Tổng Kết Thành Quả & Định Hướng Phát Triển")
+    s17 = prs.slides.add_slide(blank_layout)
+    add_header(s17, "14. Tổng Kết Thành Quả & Định Hướng Phát Triển", 17)
 
-    c1 = s16.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(0.8), Inches(1.9), Inches(5.7), Inches(5.0))
+    c1 = s17.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(0.8), Inches(1.8), Inches(5.7), Inches(5.0))
     c1.fill.solid()
     c1.fill.fore_color.rgb = CARD_BG
     c1.line.color.rgb = GREEN
     c1.line.width = Pt(2)
 
-    tb1 = s16.shapes.add_textbox(Inches(1.0), Inches(2.1), Inches(5.3), Inches(4.5))
+    tb1 = s17.shapes.add_textbox(Inches(1.0), Inches(2.0), Inches(5.3), Inches(4.5))
     tf1 = tb1.text_frame
     tf1.word_wrap = True
     p = tf1.paragraphs[0]
@@ -765,13 +855,13 @@ def create_deck():
         p.font.color.rgb = DARK_GRAY
         p.space_after = Pt(10)
 
-    c2 = s16.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(6.8), Inches(1.9), Inches(5.7), Inches(5.0))
+    c2 = s17.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(6.8), Inches(1.8), Inches(5.7), Inches(5.0))
     c2.fill.solid()
     c2.fill.fore_color.rgb = CARD_BG
     c2.line.color.rgb = NAVY
     c2.line.width = Pt(2)
 
-    tb2 = s16.shapes.add_textbox(Inches(7.0), Inches(2.1), Inches(5.3), Inches(4.5))
+    tb2 = s17.shapes.add_textbox(Inches(7.0), Inches(2.0), Inches(5.3), Inches(4.5))
     tf2 = tb2.text_frame
     tf2.word_wrap = True
     p = tf2.paragraphs[0]
@@ -796,38 +886,40 @@ def create_deck():
         p.space_after = Pt(10)
 
     # =========================================================================
-    # SLIDE 17: Closing & Q&A
+    # SLIDE 18: Closing & Q&A
     # =========================================================================
-    s17 = prs.slides.add_slide(blank_layout)
-    bg17 = s17.shapes.add_shape(MSO_SHAPE.RECTANGLE, 0, 0, Inches(13.333), Inches(7.5))
-    bg17.fill.solid()
-    bg17.fill.fore_color.rgb = NAVY
-    bg17.line.fill.background()
+    s18 = prs.slides.add_slide(blank_layout)
+    bg18 = s18.shapes.add_shape(MSO_SHAPE.RECTANGLE, 0, 0, Inches(13.333), Inches(7.5))
+    bg18.fill.solid()
+    bg18.fill.fore_color.rgb = NAVY
+    bg18.line.fill.background()
 
-    tb17 = s17.shapes.add_textbox(Inches(1.5), Inches(2.0), Inches(10.333), Inches(3.5))
-    tf17 = tb17.text_frame
-    tf17.word_wrap = True
+    add_slide_decorations(s18, 18, is_dark=True)
 
-    p = tf17.paragraphs[0]
+    tb18 = s18.shapes.add_textbox(Inches(1.5), Inches(1.8), Inches(10.333), Inches(3.8))
+    tf18 = tb18.text_frame
+    tf18.word_wrap = True
+
+    p = tf18.paragraphs[0]
     p.text = "XIN TRÂN TRỌNG CẢM ƠN THẦY CÔ VÀ CÁC BẠN!"
     p.font.size = Pt(32)
     p.font.bold = True
     p.font.color.rgb = WHITE
-    p.space_after = Pt(20)
+    p.space_after = Pt(18)
 
-    p = tf17.add_paragraph()
-    p.text = "Kính chúc Quý Thầy/Cô dồi dào sức khỏe và công tác tốt!\nNhóm chúng em sẵn sàng lắng nghe các ý kiến đóng góp và câu hỏi từ Hội đồng."
+    p = tf18.add_paragraph()
+    p.text = "Kính chúc Quý Thầy/Cô dồi dào sức khỏe và công tác tốt!\nNhóm 6 sẵn sàng lắng nghe các ý kiến đóng góp và câu hỏi từ Hội đồng."
     p.font.size = Pt(16)
     p.font.color.rgb = RGBColor(0x80, 0xD8, 0xFF)
-    p.space_after = Pt(24)
+    p.space_after = Pt(20)
 
-    p = tf17.add_paragraph()
+    p = tf18.add_paragraph()
     p.text = "PHIÊN HỎI ĐÁP & PHẢN BIỆN (Q&A SESSION)"
     p.font.size = Pt(20)
     p.font.bold = True
     p.font.color.rgb = RGBColor(0xFF, 0xD5, 0x4F)
 
-    # Save presentations
+    # Save presentation to all destinations
     out_paths = [
         r"d:\Code_Hoc\Kiemthu_MiniBank\SLIDE_THUYET_TRINH_MINIBANK.pptx",
         r"d:\Code_Hoc\Kiemthu_MiniBank\docs\presentation\SLIDE_THUYET_TRINH_MINIBANK.pptx",
@@ -835,8 +927,12 @@ def create_deck():
     ]
     for p in out_paths:
         os.makedirs(os.path.dirname(p), exist_ok=True)
-        prs.save(p)
-        print(f"Generated successfully: {p} ({os.path.getsize(p)} bytes)")
+        try:
+            prs.save(p)
+            print(f"Generated successfully: {p} ({os.path.getsize(p)} bytes)")
+        except PermissionError:
+            print(f"[NOTE] {p} is currently open in PowerPoint. Skipping write lock...")
+
 
 if __name__ == "__main__":
     create_deck()

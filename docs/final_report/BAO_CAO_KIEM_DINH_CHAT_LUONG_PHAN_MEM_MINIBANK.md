@@ -14,7 +14,7 @@
 * **Giảng viên hướng dẫn:** TS. Trịnh Thanh Bình
 * **Học kỳ / Năm học:** Học kỳ I - Năm học 2025 - 2026
 * **Hệ đào tạo:** Đại học chính quy - Ngành Kỹ thuật Phần mềm / Công nghệ Thông tin
-* **Nhóm sinh viên thực hiện:** Nhóm Kiểm thử Phần mềm Chuyên sâu
+* **Nhóm sinh viên thực hiện:** Nhóm 6: Nguyễn Văn Thành (MSV: 23010191) & Hà Xuân Đại (MSV: 23010494)
 * **Địa điểm & Thời gian:** Hà Nội, Năm 2026
 
 ---
@@ -2092,14 +2092,21 @@ Sau quá trình triển khai kiểm định chất lượng phần mềm toàn d
 > **Đánh giá về phạm vi kiểm thử tự động hóa API:**
 > Nhóm đã thực hiện kiểm thử API tự động cho hệ thống MiniBank bằng Postman Collection Runner. Bộ kiểm thử gồm 10 API thuộc bốn nhóm chức năng: quản trị, xác thực người dùng, sản phẩm dịch vụ và bảo mật. Kết quả thực nghiệm cho thấy toàn bộ 17/17 điều kiện kiểm thử (assertions) đều thành công, không có trường hợp thất bại, đạt tỷ lệ PASS 100%. Các API quản trị và truy xuất dữ liệu trả về HTTP 200 khi yêu cầu hợp lệ. Đối với các trường hợp kiểm thử bảo mật, hệ thống trả về HTTP 401 Unauthorized khi không cung cấp token hoặc sử dụng thông tin đăng nhập không hợp lệ. Kết quả cho thấy các API được kiểm thử đáp ứng những điều kiện mong đợi trong bộ kịch bản hiện tại. Tuy nhiên, kết quả này chưa đại diện cho việc kiểm thử toàn bộ chức năng và bảo mật của toàn bộ hệ thống; do đó, nhóm khuyến nghị tiếp tục mở rộng kịch bản kiểm thử API chuyên sâu cho các giai đoạn phát triển tiếp theo.
 
-```mermaid
-pie title Tỷ lệ kết quả thực thi kiểm thử hệ thống MiniBank (Tổng số 57 ca Passed 100%)
-    "Unit Tests (Spring Boot) [20 ca]" : 20
-    "Integration Tests (MockMvc) [11 ca]" : 11
-    "Postman API Automation [10 ca]" : 10
-    "Selenium UI Full Pages [16 ca]" : 16
-```
-<p align="center"><b>Hình 4.1: Biểu đồ phân bổ tỷ lệ kết quả kiểm thử toàn diện hệ thống MiniBank (57/57 ca Passed)</b></p>
+![Biểu đồ phân bổ tỷ lệ kết quả kiểm thử toàn diện hệ thống MiniBank (57 ca Passed 100%)](docs/figures/hinh_4_1_pie_chart.png)
+<p align="center"><b>Hình 4.1: Biểu đồ phân bổ tỷ lệ kết quả kiểm thử toàn diện hệ thống MiniBank (57 ca Passed 100%)</b></p>
+
+#### Bảng tổng hợp phân bổ 57 ca kiểm thử theo loại hình kiểm thử:
+
+<p align="center"><b>Bảng 4.0: Bảng tổng hợp phân bổ ca kiểm thử tự động hóa hệ thống MiniBank</b></p>
+
+| Loại kiểm thử | Số ca thực thi | Tỷ lệ (%) | Trạng thái thực nghiệm |
+| :--- | :---: | :---: | :---: |
+| **Unit Tests (Spring Boot)** | 20 | 35.09% | **100% Passed (20/20)** |
+| **Integration Tests (MockMvc)** | 11 | 19.30% | **100% Passed (11/11)** |
+| **Postman API Automation** | 10 | 17.54% | **100% Passed (10/10)** |
+| **Selenium UI Full Pages** | 16 | 28.07% | **100% Passed (16/16)** |
+| **TỔNG HỢP TOÀN BỘ HỆ THỐNG** | **57** | **100.0%** | **100% Passed (57/57)** |
+
 
 ---
 
