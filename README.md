@@ -1,4 +1,4 @@
-# 🏦 MiniBank - Hệ Thống Ngân Hàng Số & Hồ Sơ Kiểm Định Chất Lượng Toàn Diện
+﻿# 🏦 MiniBank - Hệ Thống Ngân Hàng Số & Hồ Sơ Kiểm Định Chất Lượng Toàn Diện
 
 > **ĐỀ TÀI:** KIỂM ĐỊNH VÀ ĐÁNH GIÁ CHẤT LƯỢNG HỆ THỐNG NGÂN HÀNG SỐ TRỰC TUYẾN MINIBANK  
 > **Giảng viên hướng dẫn:** TS. Trịnh Thanh Bình  
@@ -72,18 +72,14 @@ Toàn bộ các chỉ tiêu chất lượng đề ra đều đã hoàn thành v�
 
 ```text
 d:\Code_Hoc\Kiemthu_MiniBank\
-├── BAO_CAO_KIEM_DINH_CHAT_LUONG_PHAN_MEM_MINIBANK.docx  # Báo cáo Word 2.09MB hoàn thiện (22 ảnh HD)
-├── BAO_CAO_KIEM_DINH_CHAT_LUONG_PHAN_MEM_MINIBANK.md    # Báo cáo Markdown chuẩn học thuật Phenikaa
-├── SLIDE_THUYET_TRINH_MINIBANK.pptx                    # Slide thuyết trình PowerPoint 16:9 bảo vệ đề tài (18 slide)
+├── baocaokiemdinh.pdf                                  # Báo cáo pdf
+├── video_thuyettrinh.pdf                               # video thuyết trình
+├── SLIDE_THUYET_TRINH_MINIBANK.pptx                    # Slide thuyết trình PowerPoint
 ├── README.md                                           # Tài liệu tổng quan đề tài hiện tại
 ├── pom.xml                                             # Cấu hình Maven (Java 17 baseline, JaCoCo 0.8.12)
 │
 ├── docs/                                               # Hồ sơ tài liệu kỹ thuật
-│   ├── figures/                                        # Toàn bộ ảnh minh chứng thực tế sắc nét (23 ảnh)
-│   ├── final_report/                                   # Bản lưu trữ báo cáo chuẩn bị in ấn nộp khoa
-│   ├── presentation/                                   # Giáo trình slide, kịch bản thuyết trình & file PPTX
-│   │   ├── GIAO_TRINH_SLIDE_VA_KICH_BAN_THUYET_TRINH.md # Lời thoại từng slide, hướng dẫn live demo
-│   │   └── SLIDE_THUYET_TRINH_MINIBANK.pptx            # Tệp trình chiếu PowerPoint
+│   ├── final_report/                                   # Bản lưu trữ báo cáo chuẩn bị
 │   └── step_docs/                                      # Tài liệu hướng dẫn từng bước chi tiết
 │       └── HUONG_DAN_CHAY_VA_KIEM_THU.md               # Sổ tay hướng dẫn chạy và kiểm thử từ A-Z
 │
