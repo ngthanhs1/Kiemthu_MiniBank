@@ -1,10 +1,10 @@
-﻿# 🏦 MiniBank - Hệ Thống Ngân Hàng Số & Hồ Sơ Kiểm Định Chất Lượng Toàn Diện
+# 🏦 MiniBank - Hệ Thống Ngân Hàng Số & Hồ Sơ Kiểm Định Chất Lượng Toàn Diện
 
 > **ĐỀ TÀI:** KIỂM ĐỊNH VÀ ĐÁNH GIÁ CHẤT LƯỢNG HỆ THỐNG NGÂN HÀNG SỐ TRỰC TUYẾN MINIBANK  
-> **Giảng viên hướng dẫn:** TS. Trịnh Thanh Bình
-> **Thành viên:** Nguyễn Văn Thành - Hà Xuân Đại 
+> **Giảng viên hướng dẫn:** TS. Trịnh Thanh Bình  
 > **Học phần:** Kiểm định và Đánh giá chất lượng phần mềm  
 > **Nhóm thực hiện:** Nhóm 6: Nguyễn Văn Thành (MSV: 23010191) & Hà Xuân Đại (MSV: 23010494)  
+> **🎬 Video thuyết trình đề tài của nhóm:** [https://youtu.be/QF46rHbc8ow](https://youtu.be/QF46rHbc8ow)  
 > **Phiên bản:** 2.0.0 (Chuẩn hóa Java 17+, Next.js 16, 57 Ca kiểm thử tự động đạt 100% Pass Rate)
 
 ---
@@ -72,14 +72,14 @@ Toàn bộ các chỉ tiêu chất lượng đề ra đều đã hoàn thành v�
 
 ```text
 d:\Code_Hoc\Kiemthu_MiniBank\
-├── BAO_CAO_KIEM_DINH_CHAT_LUONG_PHAN_MEM_MINIBANK.docx  # Báo cáo Word 2.02MB hoàn thiện (21 ảnh HD)
+├── BAO_CAO_KIEM_DINH_CHAT_LUONG_PHAN_MEM_MINIBANK.docx  # Báo cáo Word 2.09MB hoàn thiện (22 ảnh HD)
 ├── BAO_CAO_KIEM_DINH_CHAT_LUONG_PHAN_MEM_MINIBANK.md    # Báo cáo Markdown chuẩn học thuật Phenikaa
-├── SLIDE_THUYET_TRINH_MINIBANK.pptx                    # Slide thuyết trình PowerPoint 16:9 bảo vệ đề tài
+├── SLIDE_THUYET_TRINH_MINIBANK.pptx                    # Slide thuyết trình PowerPoint 16:9 bảo vệ đề tài (18 slide)
 ├── README.md                                           # Tài liệu tổng quan đề tài hiện tại
 ├── pom.xml                                             # Cấu hình Maven (Java 17 baseline, JaCoCo 0.8.12)
 │
 ├── docs/                                               # Hồ sơ tài liệu kỹ thuật
-│   ├── figures/                                        # Toàn bộ 21 ảnh minh chứng thực tế sắc nét
+│   ├── figures/                                        # Toàn bộ ảnh minh chứng thực tế sắc nét (23 ảnh)
 │   ├── final_report/                                   # Bản lưu trữ báo cáo chuẩn bị in ấn nộp khoa
 │   ├── presentation/                                   # Giáo trình slide, kịch bản thuyết trình & file PPTX
 │   │   ├── GIAO_TRINH_SLIDE_VA_KICH_BAN_THUYET_TRINH.md # Lời thoại từng slide, hướng dẫn live demo
@@ -173,7 +173,8 @@ cmd /c "npx --yes newman run test_automation/postman/MiniBank_API_Automation.pos
 ```powershell
 python test_automation/selenium/test_admin_portal_all_pages.py -v
 ```
-* **Kết quả:** `Ran 16 tests in 72.952s - OK` (Tỷ lệ đạt tuyệt đối 100%).
+* **Kết quả:** `Ran 16 tests in 38.52s - OK` (Tỷ lệ đạt tuyệt đối 100%).
+* **Chế độ hiển thị:** Mặc định tự động mở cửa sổ trình duyệt Chrome toàn màn hình để quan sát bot thao tác trực tiếp.
 * **Hoặc mở trực quan bằng Selenium IDE:** Mở Chrome cài tiện ích Selenium IDE ➔ Mở tệp `test_automation/selenium/MiniBank_Admin_UI_Test.side` ➔ Bấm nút **Play (▶️)** để quan sát trình duyệt tự động điền form và click chuyển trang.
 
 ### 6.4. Chạy kiểm thử tải và hiệu năng với Apache JMeter
@@ -199,3 +200,18 @@ jmeter -n -t test_automation\jmeter\MiniBank_Performance_TestPlan.jmx -l test_au
 * **Mã xác thực OTP:** `123456` (Chế độ `SMS_DEV_MODE=true`)
 * **Số tài khoản thanh toán:** `1000001`
 * **Số dư khả dụng ban đầu:** `10.000.000 VNĐ`
+
+---
+
+## 8. Danh Mục Hồ Sơ & Sản Phẩm Đề Tài Đã Bàn Giao
+
+| STT | Tên Sản Phẩm / Tài Liệu | Định Dạng | Mô Tả & Đường Dẫn |
+| :---: | :--- | :---: | :--- |
+| 1 | **Video thuyết trình báo cáo đề tài** | Trực tuyến | [https://youtu.be/QF46rHbc8ow](https://youtu.be/QF46rHbc8ow) |
+| 2 | **Báo cáo kiểm định chất lượng (Word)** | `.docx` | `BAO_CAO_KIEM_DINH_CHAT_LUONG_PHAN_MEM_MINIBANK.docx` (2.09 MB, 22 ảnh) |
+| 3 | **Báo cáo kỹ thuật chi tiết (Markdown)** | `.md` | `BAO_CAO_KIEM_DINH_CHAT_LUONG_PHAN_MEM_MINIBANK.md` |
+| 4 | **Slide thuyết trình bảo vệ đề tài** | `.pptx` | `SLIDE_THUYET_TRINH_MINIBANK.pptx` (18 slide 16:9, logo Phenikaa) |
+| 5 | **Giáo trình slide & Kịch bản live demo** | `.md` | `docs/presentation/GIAO_TRINH_SLIDE_VA_KICH_BAN_THUYET_TRINH.md` |
+| 6 | **Bộ kịch bản tự động hóa API** | `.json` | `test_automation/postman/MiniBank_API_Automation.postman_collection.json` |
+| 7 | **Bộ kiểm thử tự động giao diện 16 trang**| `.py` | `test_automation/selenium/test_admin_portal_all_pages.py` |
+| 8 | **Kịch bản kiểm thử tải Apache JMeter** | `.jmx` | `test_automation/jmeter/MiniBank_Performance_TestPlan.jmx` |
